@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Comp3330_Project</string>
+    <string name="createProfile">Create Profile</string>
+    <string name="login">Login</string>
+    <string name="homeButtonDescription">Home</string>
+    <string name="nutrihealth">NutriHealth</string>
+    <string name="calories_tracker">Calories Tracker</string>
+    <string name="exercise_tracker">Exercise Tracker</string>
+    <string name="step_counter">Step Counter</string>
+    <string name="calories_calculation">Calories Calculation</string>
+    <string name="heartbeat_rate_tracker">Heartbeat Rate Tracker</string>
+    <string name="data_summary">Data Summary</string>
+    <string name="profile_setting">Profile Setting</string>
+    <string name="input_food_info">Input food info:</string>
+    <string name="food_name">Food Name:</string>
+    <string name="calories_value">Calories Value:</string>
+    <string name="caloriesTrackerAddButton">Add</string>
+    <string name="caloriesTackerCaloriesHint">Calories(kcal)</string>
+    <string name="CaloriesTrackerFoodName">Name</string>
 </resources>
