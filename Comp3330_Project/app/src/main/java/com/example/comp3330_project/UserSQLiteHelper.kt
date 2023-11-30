@@ -98,7 +98,7 @@ class UserSQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAM
                 stdList.add(std)
             } while (cursor.moveToNext())
         }
-
+        cursor.close()
         return stdList
     }
 
@@ -124,6 +124,7 @@ class UserSQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAM
                 userID = id
             } while (cursor.moveToNext())
         }
+        cursor.close()
         return userID
     }
 }

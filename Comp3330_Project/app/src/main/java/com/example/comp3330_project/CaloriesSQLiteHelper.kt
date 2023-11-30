@@ -21,8 +21,8 @@ class CaloriesSQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE
 
     override fun onCreate(db: SQLiteDatabase?) {
         val createTblUser = ("CREATE TABLE" + TBL_CALORIES + "(" +
-                                    ID + "INTEGER PRIMARY KEY," + USERID + "INTEGER," +
-                                    NAME + "TEXT," + CALORIES + "INTEGER, " +")")
+                ID + "INTEGER PRIMARY KEY," + USERID + "INTEGER," +
+                NAME + "TEXT," + CALORIES + "INTEGER, " +")")
         db?.execSQL(createTblUser)
     }
 
@@ -67,16 +67,16 @@ class CaloriesSQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE
 
         if (cursor.moveToFirst()){
             do {
-                id = cursor.getInt(cursor.getColumnIndex("id"))
-                userID = cursor.getInt(cursor.getColumnIndex("userID"))
-                name = cursor.getString(cursor.getColumnIndex("name"))
-                calories = cursor.getInt(cursor.getColumnIndex("calories"))
+                id = cursor.getInt(cursor.getColumnIndexOrThrow("id"))
+                userID = cursor.getInt(cursor.getColumnIndexOrThrow("userID"))
+                name = cursor.getString(cursor.getColumnIndexOrThrow("name"))
+                calories = cursor.getInt(cursor.getColumnIndexOrThrow("calories"))
 
                 val std = CaloriesModel(id = id, userID = userID, name = name, calories = calories)
                 stdList.add(std)
             }while (cursor.moveToNext())
         }
-
+        cursor.close()
         return stdList
     }
 }
