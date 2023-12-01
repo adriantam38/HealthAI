@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import java.util.jar.Attributes.Name
 import kotlin.Exception
 
 class UserSQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -124,6 +125,31 @@ class UserSQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAM
         }
         cursor.close()
         return userID
+    }
+
+    fun getUserName():String {
+        var name = ""
+        val selectedQuery = "SELECT * FROM $TBL_USER"
+        val db = this.readableDatabase
+        val cursor:Cursor?
+
+        try{
+            cursor = db.rawQuery(selectedQuery, null)
+        }catch (e:Exception){
+            e.printStackTrace()
+            db.execSQL(selectedQuery)
+            return ""
+        }
+
+        var Name: String
+        if (cursor.moveToFirst()){
+            do{
+                Name = cursor.getString(cursor.getColumnIndexOrThrow("name"))
+                name = Name
+            } while(cursor.moveToNext())
+        }
+        cursor.close()
+        return name
     }
 
     fun getUserPassword():String {

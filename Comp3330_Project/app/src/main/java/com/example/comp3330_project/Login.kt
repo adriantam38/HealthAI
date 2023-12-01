@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar
 class Login: AppCompatActivity() {
 
     private lateinit var passwordEditText: EditText
+    private lateinit var nameEditText: EditText
 
     private lateinit var returnButton: ImageButton
     private lateinit var saveButton: Button
@@ -52,13 +53,17 @@ class Login: AppCompatActivity() {
     }
 
     private fun verifyPassword() {
+        nameEditText = findViewById(R.id.nameEditText)
         passwordEditText = findViewById(R.id.PasswordEditText)
+
+        val inputName = nameEditText.text.toString()
         val inputPassword = passwordEditText.text.toString()
+        val name = userSQLiteHelper.getUserName()
         val password = userSQLiteHelper.getUserPassword()
         Toast.makeText(this, password, Toast.LENGTH_LONG).show()
         Toast.makeText(this, inputPassword, Toast.LENGTH_LONG).show()
 
-        if (inputPassword == password) {
+        if (inputName == name && inputPassword == password) {
             loadProfile()
             Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
             changeActivity("Menu")
