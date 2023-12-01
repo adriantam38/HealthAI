@@ -5,14 +5,14 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import java.lang.Exception
+import kotlin.Exception
 
 class UserSQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
         private const val DATABASE_VERSION = 1
         private const val DATABASE_NAME = "User.db"
-        private var ID = "id"
+        private const val ID = "id"
         private const val TBL_USER = "tbl_user"
         private const val NAME = "name"
         private const val AGE = "age"
@@ -24,12 +24,10 @@ class UserSQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAM
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        val createTblUser = ("CREATE TABLE" + TBL_USER + "(" +
-                ID + "INTEGER PRIMARY KEY," + NAME + "TEXT," +
-                AGE + "INTEGER," + HEIGHT + "REAL," + WEIGHT + "REAL," +
-                GENDER + "INTEGER," + ACTIVITYLEVEL + "INTEGER," + PASSWORD + "TEXT" + ")")
-
-
+        val createTblUser = ("CREATE TABLE " + TBL_USER + "(" +
+                ID + " INTEGER PRIMARY KEY, " + NAME + " TEXT, " +
+                AGE + " INTEGER, " + HEIGHT + " REAL, " + WEIGHT + " REAL, " +
+                GENDER + " INTEGER, " + ACTIVITYLEVEL + " INTEGER, " + PASSWORD + " TEXT" + ")")
         db?.execSQL(createTblUser)
     }
 
@@ -126,5 +124,49 @@ class UserSQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAM
         }
         cursor.close()
         return userID
+    }
+
+    fun getUserPassword():String {
+        var password = ""
+        val selectedQuery = "SELECT * FROM $TBL_USER"
+        val db = this.readableDatabase
+        val cursor:Cursor?
+
+        try{
+            cursor = db.rawQuery(selectedQuery, null)
+        }catch (e:Exception){
+            e.printStackTrace()
+            db.execSQL(selectedQuery)
+            return ""
+        }
+
+        var pass: String
+        if (cursor.moveToFirst()){
+            do{
+                pass = cursor.getString(cursor.getColumnIndexOrThrow("password"))
+                password = pass
+            } while(cursor.moveToNext())
+        }
+        cursor.close()
+        return password
+    }
+
+    fun updateRecord(std: UserModel):Int{
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues()
+        contentValues.put(ID, std.id)
+        contentValues.put(NAME, std.name)
+        contentValues.put(AGE, std.age)
+        contentValues.put(HEIGHT, std.height)
+        contentValues.put(WEIGHT, std.weight)
+        contentValues.put(GENDER, std.gender)
+        contentValues.put(ACTIVITYLEVEL, std.activityLevel)
+        contentValues.put(PASSWORD, std.password)
+
+
+        val success = db.update(TBL_USER, contentValues, "id=" + std.id, null)
+        db.close()
+        return success
     }
 }

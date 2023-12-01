@@ -194,7 +194,7 @@ internal class OutputAnalyzer(
                 cameraService.stop()
             }
         }
-        activity.setViewState(HeartBeatMain.VIEW_STATE.MEASUREMENT)
+//        activity.setViewState(HeartBeatMain.VIEW_STATE.MEASUREMENT)
         (timer as CountDownTimer).start()
     }
 

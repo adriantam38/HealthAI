@@ -16,6 +16,9 @@ class Login: AppCompatActivity() {
     private lateinit var passwordEditText: EditText
 
     private lateinit var returnButton: ImageButton
+    private lateinit var saveButton: Button
+
+    private lateinit var userSQLiteHelper: UserSQLiteHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,16 +32,18 @@ class Login: AppCompatActivity() {
 
         initReturnButton()
 
-        val returnButton = toolbar.findViewById(R.id.returnButton) as ImageButton
+        userSQLiteHelper = UserSQLiteHelper(this)
+
+        returnButton = toolbar.findViewById(R.id.returnButton) as ImageButton
         returnButton.setOnClickListener {
             changeActivity("Menu")
         }
 
 
-        val saveButton: Button = findViewById(R.id.LoginButton)
-        saveButton.setOnClickListener{
-            //verifyPassword()
-            changeActivity("Menu")
+        saveButton = findViewById(R.id.LoginButton)
+        saveButton.setOnClickListener {
+            verifyPassword()
+            //changeActivity("Menu")
         }
     }
 
@@ -47,11 +52,11 @@ class Login: AppCompatActivity() {
     }
 
     private fun verifyPassword() {
-
-        val sharedPref = getSharedPreferences("UserProfile", Context.MODE_PRIVATE)
-        val password = sharedPref.getString("password", null)
         passwordEditText = findViewById(R.id.PasswordEditText)
         val inputPassword = passwordEditText.text.toString()
+        val password = userSQLiteHelper.getUserPassword()
+        Toast.makeText(this, password, Toast.LENGTH_LONG).show()
+        Toast.makeText(this, inputPassword, Toast.LENGTH_LONG).show()
 
         if (inputPassword == password) {
             loadProfile()
@@ -59,7 +64,7 @@ class Login: AppCompatActivity() {
             changeActivity("Menu")
         }
         else{
-            Toast.makeText(this, password, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -74,11 +79,11 @@ class Login: AppCompatActivity() {
 
     private fun changeActivity(string: String){
         if (string == "Activity"){
-            val intent = Intent(this@Login, MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
         else if (string == "Menu"){
-            val intent = Intent(this@Login, MainMenu::class.java)
+            val intent = Intent(this, MainMenu::class.java)
             startActivity(intent)
         }
     }

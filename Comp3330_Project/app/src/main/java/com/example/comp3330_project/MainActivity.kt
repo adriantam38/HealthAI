@@ -8,8 +8,7 @@ import android.os.Bundle
 import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
+    public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -26,10 +25,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun changeActivity(str: String){
         if (str == "Login"){
-            val intent = Intent(this@MainActivity, Login::class.java)
+            val intent = Intent(this, Login::class.java)
             startActivity(intent)}
         else if (str == "CreateProfile"){
-            val intent = Intent(this@MainActivity, CreateProfile::class.java)
+            val intent = Intent(this, CreateProfile::class.java)
+            intent.putExtra("mode", "Create")
             startActivity(intent)}
 
     }

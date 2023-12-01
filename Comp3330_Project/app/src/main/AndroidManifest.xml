@@ -25,10 +25,12 @@
         <activity android:name=".CreateProfile"
             android:exported="false" />
         <activity android:name=".MainMenu"
-            android:exported="true"/>
+            android:exported="false"/>
         <activity android:name=".CaloriesTracker"
             android:exported="false"/>
         <activity android:name=".Test_CaloriesTrackerView"
+            android:exported="false"/>
+        <activity android:name=".Test_UserView"
             android:exported="false"/>
         <activity android:name=".HeartBeatMain"
             android:exported="false" />

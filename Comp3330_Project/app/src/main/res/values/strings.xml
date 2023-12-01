@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Comp3330_Project</string>
     <string name="createProfile">Create Profile</string>
+    <string name="modifyProfile">Modify Profile</string>
     <string name="login">Login</string>
     <string name="homeButtonDescription">Home</string>
     <string name="nutrihealth">NutriHealth</string>

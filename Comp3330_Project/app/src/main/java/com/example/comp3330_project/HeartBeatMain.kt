@@ -3,7 +3,6 @@ package com.example.comp3330_project
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -17,7 +16,9 @@ import android.view.Surface
 import android.view.TextureView
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback
@@ -26,7 +27,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class HeartBeatMain : Activity(), OnRequestPermissionsResultCallback {
+class HeartBeatMain : AppCompatActivity(), OnRequestPermissionsResultCallback {
     private var analyzer: OutputAnalyzer? = null
     private val REQUEST_CODE_CAMERA = 0
 
@@ -47,8 +48,10 @@ class HeartBeatMain : Activity(), OnRequestPermissionsResultCallback {
                 (findViewById<View>(R.id.editText) as EditText).setText(msg.obj.toString())
 
                 // make sure menu items are enabled when it opens.
-                val appMenu = (findViewById<View>(R.id.toolbar) as Toolbar).menu
-                setViewState(com.example.comp3330_project.HeartBeatMain.VIEW_STATE.SHOW_RESULTS)
+                /*val appMenu = (findViewById<View>(R.id.HeartBeat_toolbar) as Toolbar).menu
+                setViewState(com.example.comp3330_project.HeartBeatMain.VIEW_STATE.SHOW_RESULTS)*/
+
+
             }
             if (msg.what == MESSAGE_CAMERA_NOT_AVAILABLE) {
                 Log.println(Log.WARN, "camera", msg.obj.toString())
@@ -60,7 +63,7 @@ class HeartBeatMain : Activity(), OnRequestPermissionsResultCallback {
         }
     }
     private val cameraService: CameraService = CameraService(this, mainHandler)
-    override fun onResume() {
+    /*override fun onResume() {
         super.onResume()
         analyzer = OutputAnalyzer(this, findViewById(R.id.graphTextureView), mainHandler)
         val cameraTextureView = findViewById<TextureView>(R.id.textureView2)
@@ -75,7 +78,7 @@ class HeartBeatMain : Activity(), OnRequestPermissionsResultCallback {
             // show warning when there is no flash
             if (!this.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
                 Snackbar.make(
-                    findViewById<View>(R.id.constraintLayout),
+                    findViewById(R.id.constraintLayout),
                     getString(R.string.noFlashWarning),
                     Snackbar.LENGTH_LONG
                 ).show()
@@ -90,7 +93,7 @@ class HeartBeatMain : Activity(), OnRequestPermissionsResultCallback {
             cameraService.start(previewSurface)
             analyzer!!.measurePulse(cameraTextureView, cameraService)
         }
-    }
+    }*/
 
     override fun onPause() {
         super.onPause()
@@ -106,6 +109,15 @@ class HeartBeatMain : Activity(), OnRequestPermissionsResultCallback {
             this, arrayOf(Manifest.permission.CAMERA),
             REQUEST_CODE_CAMERA
         )
+
+        val toolbar = findViewById<Toolbar>(R.id.HeartBeat_toolbar)
+        setSupportActionBar(toolbar)
+
+        val returnButton = toolbar.findViewById(R.id.returnButton) as ImageButton
+        returnButton.setOnClickListener {
+            changeActivity()
+        }
+
     }
 
     override fun onRequestPermissionsResult(
@@ -113,10 +125,11 @@ class HeartBeatMain : Activity(), OnRequestPermissionsResultCallback {
         permissions: Array<String>,
         grantResults: IntArray
     ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CODE_CAMERA) {
             if (!(grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 Snackbar.make(
-                    findViewById<View>(R.id.constraintLayout),
+                    findViewById(R.id.constraintLayout),
                     getString(R.string.cameraPermissionRequired),
                     Snackbar.LENGTH_LONG
                 ).show()
@@ -131,8 +144,8 @@ class HeartBeatMain : Activity(), OnRequestPermissionsResultCallback {
         return super.onPrepareOptionsMenu(menu)
     }
 
-    fun setViewState(state: com.example.comp3330_project.HeartBeatMain.VIEW_STATE?) {
-        val appMenu = (findViewById<View>(R.id.toolbar) as Toolbar).menu
+    /*fun setViewState(state: com.example.comp3330_project.HeartBeatMain.VIEW_STATE?) {
+        val appMenu = (findViewById<View>(R.id.HeartBeat_toolbar) as Toolbar).menu
         when (state) {
             com.example.comp3330_project.HeartBeatMain.VIEW_STATE.MEASUREMENT -> {
                 appMenu.getItem(MENU_INDEX_NEW_MEASUREMENT).isVisible = false
@@ -150,7 +163,7 @@ class HeartBeatMain : Activity(), OnRequestPermissionsResultCallback {
 
             else -> {}
         }
-    }
+    }*/
 
     fun onClickNewMeasurement(item: MenuItem?) {
         onClickNewMeasurement()
@@ -171,7 +184,7 @@ class HeartBeatMain : Activity(), OnRequestPermissionsResultCallback {
         // hide the new measurement item while another one is in progress in order to wait
         // for the previous one to finish
         // Exporting results cannot be done, either, as it would read from the already cleared UI.
-        setViewState(com.example.comp3330_project.HeartBeatMain.VIEW_STATE.MEASUREMENT)
+//        setViewState(com.example.comp3330_project.HeartBeatMain.VIEW_STATE.MEASUREMENT)
         val cameraTextureView = findViewById<TextureView>(R.id.textureView2)
         val previewSurfaceTexture = cameraTextureView.surfaceTexture
         if (previewSurfaceTexture != null) {
@@ -209,6 +222,11 @@ class HeartBeatMain : Activity(), OnRequestPermissionsResultCallback {
         )
         intent.putExtra(Intent.EXTRA_TEXT, intentText)
         return intent
+    }
+
+    private fun changeActivity() {
+        val intent = Intent(this, MainMenu::class.java)
+        startActivity(intent)
     }
 
     companion object {

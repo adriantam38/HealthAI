@@ -20,9 +20,9 @@ class CaloriesSQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        val createTblUser = ("CREATE TABLE" + TBL_CALORIES + "(" +
-                ID + "INTEGER PRIMARY KEY," + USERID + "INTEGER," +
-                NAME + "TEXT," + CALORIES + "INTEGER, " +")")
+        val createTblUser = ("CREATE TABLE " + TBL_CALORIES + "(" +
+                ID + " INTEGER PRIMARY KEY, " + USERID + " INTEGER, " +
+                NAME + " TEXT, " + CALORIES + " INTEGER" +")")
         db?.execSQL(createTblUser)
     }
 
@@ -78,5 +78,30 @@ class CaloriesSQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE
         }
         cursor.close()
         return stdList
+    }
+
+    fun updateRecords(std: CaloriesModel):Int{
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues()
+        contentValues.put(ID, std.id)
+        contentValues.put(USERID, std.userID)
+        contentValues.put(NAME, std.name)
+        contentValues.put(CALORIES, std.calories)
+
+        val success = db.update(TBL_CALORIES, contentValues, "id=" + std.id, null)
+        db.close()
+        return success
+    }
+
+    fun deleteRecordsById(id:Int): Int{
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues()
+        contentValues.put(ID, id)
+
+        val success = db.delete(TBL_CALORIES, "id=$id", null)
+        db.close()
+        return success
     }
 }

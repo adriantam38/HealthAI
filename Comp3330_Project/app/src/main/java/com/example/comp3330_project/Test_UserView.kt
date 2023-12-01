@@ -1,9 +1,12 @@
 package com.example.comp3330_project
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 
 class Test_UserView:AppCompatActivity() {
     private lateinit var userSQLiteHelper: UserSQLiteHelper
@@ -20,7 +23,16 @@ class Test_UserView:AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.test_activity_user_record_viewer)
 
-        val viewButton: Button = findViewById(R.id.test_button)
+
+        val toolbar = findViewById<Toolbar>(R.id.UserView_toolbar)
+        setSupportActionBar(toolbar)
+
+        val returnButton = toolbar.findViewById(R.id.returnButton) as ImageButton
+        returnButton.setOnClickListener {
+            changeActivity()
+        }
+
+        val viewButton: Button = findViewById(R.id.viewButton)
         viewButton.setOnClickListener { getUser() }
         userSQLiteHelper = UserSQLiteHelper(this)
 
@@ -46,5 +58,10 @@ class Test_UserView:AppCompatActivity() {
         gender.text = std.gender.toString()
         activityLevel.text = std.activityLevel.toString()
         password.text = std.password
+    }
+
+    private fun changeActivity() {
+        val intent = Intent(this, MainMenu::class.java)
+        startActivity(intent)
     }
 }

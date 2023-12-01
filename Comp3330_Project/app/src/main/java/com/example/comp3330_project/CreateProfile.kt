@@ -28,18 +28,29 @@ class CreateProfile : AppCompatActivity() {
 
     private lateinit var passwordEditText: EditText
 
-    private lateinit var userSQListeHelper: UserSQLiteHelper
+    private lateinit var userSQLiteHelper: UserSQLiteHelper
+
+    private var std:UserModel? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        val mode = intent.getStringExtra("mode")
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
         val toolbar = findViewById<Toolbar>(R.id.create_toolbar)
         setSupportActionBar(toolbar)
 
-        val textView = toolbar.findViewById(R.id.toolbar_name) as TextView
-        textView.setText("Create Profile")
+        val titleView = toolbar.findViewById(R.id.toolbar_name) as TextView
+        if (mode == "Create") {
+            titleView.text = "Create Profile"
+        }
+        else if (mode == "Modify"){
+            titleView.text = "Modify Profile"
+        }
+
 
         val returnButton = toolbar.findViewById(R.id.returnButton) as ImageButton
         returnButton.setOnClickListener {
@@ -47,11 +58,11 @@ class CreateProfile : AppCompatActivity() {
         }
 
         nameEditText = findViewById(R.id.nameEditText)
-
         ageEditText = findViewById(R.id.ageEditText)
+        heightEditText = findViewById(R.id.heightEditText)
         weightEditText = findViewById(R.id.weightEditText)
 
-        gender = findViewById<RadioGroup>(R.id.gender_radio_group)
+        gender = findViewById(R.id.gender_radio_group)
         gender.setOnCheckedChangeListener { _, checkedId ->
             val radio: RadioButton = findViewById(checkedId)
             if (radio.text == "Male") {
@@ -61,7 +72,7 @@ class CreateProfile : AppCompatActivity() {
             }
         }
 
-        activity = findViewById<RadioGroup>(R.id.activity_radio_group)
+        activity = findViewById(R.id.activity_radio_group)
         activity.setOnCheckedChangeListener { _, checkedId ->
             val radio: RadioButton = findViewById(checkedId)
             if (radio.text == "High") {
@@ -72,14 +83,42 @@ class CreateProfile : AppCompatActivity() {
 
         }
 
-        userSQListeHelper = UserSQLiteHelper(this)
+        if (mode == "Modify"){
+            nameEditText.setText(std?.name)
+            ageEditText.setText(std?.age.toString())
+            heightEditText.setText(std?.height.toString())
+            weightEditText.setText(std?.weight.toString())
+            passwordEditText.setText((std?.password))
+            if (std?.gender == 0) {
+                val gender: RadioButton =findViewById(R.id.Male)
+                gender.isChecked = true
+            }
+            else if (std?.gender == 1){
+                val gender: RadioButton = findViewById(R.id.Female)
+                gender.isChecked = true
+            }
+            if (std?.activityLevel == 0){
+                val level: RadioButton = findViewById(R.id.High)
+                level.isChecked = true
+            }
+            else if (std?.activityLevel == 1){
+                val level: RadioButton = findViewById(R.id.Low)
+                level.isChecked = true
+            }
+        }
 
-        passwordEditText = findViewById(R.id.PasswordEditText)
+        userSQLiteHelper = UserSQLiteHelper(this)
+
+        passwordEditText = findViewById(R.id.ProfileNameEditText)
 
         val saveButton: Button = findViewById(R.id.saveButton)
         saveButton.setOnClickListener {
-            addRecord()
-            changeActivity("Menu")
+            if (mode == "Create") {
+                addRecord()
+            }
+            else if (mode == "Modify"){
+                updateRecord()
+            }
         }
     }
 
@@ -99,7 +138,7 @@ class CreateProfile : AppCompatActivity() {
                 name = name, age = age, height = height, weight = weight,
                 gender = selectedGender, activityLevel = selectedActivity, password = password
             )
-            val status = userSQListeHelper.insertRecord(std)
+            val status = userSQLiteHelper.insertRecord(std)
             if (status > -1){
                 Toast.makeText(this, "Record added", Toast.LENGTH_SHORT).show()
                 clearEditText()
@@ -108,6 +147,39 @@ class CreateProfile : AppCompatActivity() {
             }
 
             Toast.makeText(this, password, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun updateRecord(){
+        if (nameEditText.text.isEmpty() || ageEditText.text.isEmpty() || weightEditText.text.isEmpty() ||
+            heightEditText.text.isEmpty() || passwordEditText.text.isEmpty()
+        ) {
+            Toast.makeText(this, "Please enter the required field", Toast.LENGTH_LONG).show()
+        } else {
+            if (std == null) return
+            val name = nameEditText.text.toString()
+            val age = ageEditText.text.toString().toInt()
+            val weight = weightEditText.text.toString().toFloat()
+            val height = heightEditText.text.toString().toFloat()
+            val password = passwordEditText.text.toString()
+            if (name == std?.name &&
+                age == std?.age &&
+                weight == std?.weight &&
+                height == std?.height &&
+                password == std?.password
+            ) {
+                val std = UserModel (id = std!!.id,
+                    name = name, age = age, height = height, weight = weight,
+                    gender = selectedGender, activityLevel = selectedActivity, password = password
+                )
+                val status = userSQLiteHelper.updateRecord(std)
+                if (status > -1) {
+                    Toast.makeText(this, "Record updated", Toast.LENGTH_SHORT).show()
+                    clearEditText()
+                } else {
+                    Toast.makeText(this, "Record not updated", Toast.LENGTH_LONG).show()
+                }
+            }
         }
     }
 

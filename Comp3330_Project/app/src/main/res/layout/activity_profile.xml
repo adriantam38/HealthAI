@@ -64,8 +64,8 @@
                     android:layout_height="50dp"
                     android:ems="10"
                     android:hint="Chan Tai Man"
-                    android:inputType="number"
-                    android:textColorHint="#A1887F"/>
+                    android:inputType="text"
+                    android:textColorHint="#A1887F" />
 
             </LinearLayout>
 
@@ -128,7 +128,7 @@
                     android:layout_weight="1" />
 
                 <EditText
-                    android:id="@+id/HeightEditText"
+                    android:id="@+id/heightEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:ems="10"
@@ -213,7 +213,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
                         android:layout_weight="1"
-                        android:text="Female" />
+                        android:text="Female"
+                        android:checked="false"/>
 
                 </RadioGroup>
 
@@ -252,13 +253,15 @@
                         android:id="@+id/High"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:text="High" />
+                        android:text="High"
+                        android:checked="false"/>
 
                     <RadioButton
                         android:id="@+id/Low"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:text="Low" />
+                        android:text="Low"
+                        android:checked="false"/>
                 </RadioGroup>
             </LinearLayout>
 
@@ -273,7 +276,7 @@
                 android:paddingBottom="10dp">
 
                 <TextView
-                    android:id="@+id/PasswordText"
+                    android:id="@+id/ProfileNameText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingEnd="30dp"
@@ -286,7 +289,7 @@
                     android:layout_weight="1" />
 
                 <EditText
-                    android:id="@+id/PasswordEditText"
+                    android:id="@+id/ProfileNameEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:ems="12"
