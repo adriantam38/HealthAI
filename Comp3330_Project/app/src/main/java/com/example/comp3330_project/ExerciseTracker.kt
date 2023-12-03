@@ -5,28 +5,36 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.RecyclerView
 
-class CaloriesTracker : AppCompatActivity() {
+class ExerciseTracker : AppCompatActivity() {
     private lateinit var nameEditText: EditText
+    private lateinit var durationEditText: EditText
+    private lateinit var intensityRadioGroup: RadioGroup
+    private lateinit var intensityRadioButton: RadioButton
     private lateinit var caloriesEditText: EditText
-    private lateinit var caloriesAddButton: Button
+    private lateinit var exerciseAddButton: Button
 
-    private lateinit var caloriesSqLiteHelper: CaloriesSQLiteHelper
+    private lateinit var exerciseSqLiteHelper: ExerciseSQLiteHelper
     private lateinit var userSqLiteHelper: UserSQLiteHelper
 
     private lateinit var recyclerView: RecyclerView
-    private var adapter: Test_CaloriesTrackerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_caloriestracker)
+        setContentView(R.layout.activity_exercisetracker)
 
         val toolbar = findViewById<Toolbar>(R.id.create_toolbar)
         setSupportActionBar(toolbar)
+
+        val textView = toolbar.findViewById(R.id.toolbar_name) as TextView
+        textView.text = "Exercise Tracker"
 
         val returnButton = toolbar.findViewById(R.id.returnButton) as ImageButton
         returnButton.setOnClickListener {
@@ -34,25 +42,31 @@ class CaloriesTracker : AppCompatActivity() {
         }
 
         nameEditText = findViewById(R.id.nameEditText)
-        caloriesEditText = findViewById(R.id.DurationEditText)
-        caloriesAddButton = findViewById(R.id.caloriesAddButton)
-        caloriesSqLiteHelper = CaloriesSQLiteHelper(this)
+        durationEditText = findViewById(R.id.DurationEditText)
+        intensityRadioGroup = findViewById(R.id.intensityRadioGroup)
+        caloriesEditText = findViewById(R.id.CaloriesEditText)
+        exerciseAddButton = findViewById(R.id.exerciseAddButton)
+        exerciseSqLiteHelper = ExerciseSQLiteHelper(this)
         userSqLiteHelper = UserSQLiteHelper(this)
 
-        caloriesAddButton.setOnClickListener { addRecord() }
+        exerciseAddButton.setOnClickListener { addRecord() }
     }
-
     private fun addRecord() {
         val name = nameEditText.text.toString()
         val calories = caloriesEditText.text.toString().toIntOrNull()
+        val duration = durationEditText.text.toString().toInt()
+
+        val selectedOption: Int = intensityRadioGroup!!.checkedRadioButtonId
+        intensityRadioButton = findViewById(selectedOption)
+        val intensity = intensityRadioButton.text.toString()
 
         if (name.isEmpty() || calories == null) {
             Toast.makeText(this, "Please enter the required field", Toast.LENGTH_LONG).show()
         } else {
             val userID = userSqLiteHelper.getUserID()
             if (userID != 0) {
-                val std = CaloriesModel(name = name, userID = userID, calories = calories)
-                val status = caloriesSqLiteHelper.insertRecord(std)
+                val std = ExerciseModel(userID = userID, name = name, intensity = intensity, duration = duration, calories = calories)
+                val status = exerciseSqLiteHelper.insertRecord(std)
                 if (status > -1) {
                     Toast.makeText(this, "Record added", Toast.LENGTH_LONG).show()
                     clearEditText()

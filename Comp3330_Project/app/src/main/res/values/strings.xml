@@ -13,7 +13,12 @@
     <string name="data_summary">Data Summary</string>
     <string name="profile_setting">Profile Setting</string>
     <string name="input_food_info">Input food info:</string>
+    <string name="input_exercise_info">Input exercise info:</string>
+    <string name="exercise_name">Exercise Name:</string>
     <string name="food_name">Food Name:</string>
+    <string name="intensity">Intensity</string>
+    <string name="time_spent">Time Spent:</string>
+    <string name="calories_burnt">Calories Burnt:</string>
     <string name="calories_value">Calories Value:</string>
     <string name="caloriesTrackerAddButton">Add</string>
     <string name="caloriesTackerCaloriesHint">Calories(kcal)</string>

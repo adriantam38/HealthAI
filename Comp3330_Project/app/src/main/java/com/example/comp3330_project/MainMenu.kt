@@ -17,12 +17,12 @@ class MainMenu: AppCompatActivity() {
 
         val exerciseTrackButton: Button = findViewById(R.id.exerciseTrackerButton)
         exerciseTrackButton.setOnClickListener{
-            changeActivity("exercise")
+            changeActivity("exerciseTracker")
         }
 
         val stepCountButton: Button = findViewById(R.id.stepCounterButton)
         stepCountButton.setOnClickListener{
-            changeActivity("step")
+            changeActivity("stepTracker")
         }
 
         val caloriesCalculationButton: Button = findViewById(R.id.caloriesCalculationButton)
