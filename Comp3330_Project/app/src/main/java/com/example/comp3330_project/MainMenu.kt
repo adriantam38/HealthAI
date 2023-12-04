@@ -25,11 +25,6 @@ class MainMenu: AppCompatActivity() {
             changeActivity("stepTracker")
         }
 
-        val caloriesCalculationButton: Button = findViewById(R.id.caloriesCalculationButton)
-        caloriesCalculationButton.setOnClickListener{
-            changeActivity("caloriesCalculation")
-        }
-
         val heartRateButton: Button = findViewById(R.id.heartRateButton)
         heartRateButton.setOnClickListener{
             changeActivity("heartbeat")
@@ -37,7 +32,7 @@ class MainMenu: AppCompatActivity() {
 
         val summaryButton: Button = findViewById(R.id.summaryButton)
         summaryButton.setOnClickListener{
-            changeActivity("summary")
+            changeActivity("test_exercise")
         }
 
         val settingButton: Button = findViewById(R.id.settingButton)
@@ -62,28 +57,21 @@ class MainMenu: AppCompatActivity() {
                 val intent = Intent(this, CaloriesTracker::class.java)
                 startActivity(intent)
             }
-            "exercise" -> {
-                val intent = Intent(this, MainActivity::class.java) //change CaloriesTracker later
+            "exerciseTracker" -> {
+                val intent = Intent(this, ExerciseTracker::class.java) //change CaloriesTracker later
                 startActivity(intent)
             }
-            "step" -> {
-                val intent = Intent(this, MainActivity::class.java) //change CaloriesTracker later
-                startActivity(intent)
-            }
-            "caloriesCalc"-> {
-                val intent = Intent(this, MainActivity::class.java) //change CaloriesTracker later
+            "stepTracker" -> {
+                val intent = Intent(this, StepTracker::class.java) //change CaloriesTracker later
                 startActivity(intent)
             }
             "heartbeat" ->{
-                val intent = Intent(this, HeartBeatMain::class.java) //change CaloriesTracker later
-                startActivity(intent)
-            }
-            "summary" ->{
-                val intent = Intent(this, MainActivity::class.java) //change CaloriesTracker later
+                val intent = Intent(this, HeartBeatMain::class.java)
                 startActivity(intent)
             }
             "setting"->{
                 val intent = Intent(this, CreateProfile::class.java) //change CaloriesTracker later
+                intent.putExtra("mode", "Modify")
                 startActivity(intent)
             }
             "test_calories"->{
@@ -92,6 +80,10 @@ class MainMenu: AppCompatActivity() {
             }
             "test_user"->{
                 val intent = Intent(this, Test_UserView::class.java)
+                startActivity(intent)
+            }
+            "test_exercise" ->{
+                val intent = Intent(this, Test_ExerciseView::class.java) //change CaloriesTracker later
                 startActivity(intent)
             }
         }

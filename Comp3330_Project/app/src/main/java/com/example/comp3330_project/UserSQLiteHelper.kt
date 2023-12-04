@@ -191,7 +191,7 @@ class UserSQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAM
         contentValues.put(PASSWORD, std.password)
 
 
-        val success = db.update(TBL_USER, contentValues, "id=" + std.id, null)
+        val success = db.update(TBL_USER, contentValues, " id= " + std.id, null)
         db.close()
         return success
     }

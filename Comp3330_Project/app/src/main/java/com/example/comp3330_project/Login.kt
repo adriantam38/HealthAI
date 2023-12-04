@@ -31,29 +31,21 @@ class Login: AppCompatActivity() {
         val textView = toolbar.findViewById(R.id.toolbar_name) as TextView
         textView.text = "Login"
 
-        initReturnButton()
-
         userSQLiteHelper = UserSQLiteHelper(this)
 
         returnButton = toolbar.findViewById(R.id.returnButton) as ImageButton
         returnButton.setOnClickListener {
-            changeActivity("Menu")
+            changeActivity("Activity")
         }
-
 
         saveButton = findViewById(R.id.LoginButton)
         saveButton.setOnClickListener {
             verifyPassword()
-            //changeActivity("Menu")
         }
     }
 
-    private fun initReturnButton(){
-        val resID: Int = resources.getIdentifier("back_arrow.png", "drawable", "com.example.comp3330_project")
-    }
-
     private fun verifyPassword() {
-        nameEditText = findViewById(R.id.nameEditText)
+        nameEditText = findViewById(R.id.ProfileNameEditText)
         passwordEditText = findViewById(R.id.PasswordEditText)
 
         val inputName = nameEditText.text.toString()
@@ -64,7 +56,7 @@ class Login: AppCompatActivity() {
         Toast.makeText(this, inputPassword, Toast.LENGTH_LONG).show()
 
         if (inputName == name && inputPassword == password) {
-            loadProfile()
+            //loadProfile()
             Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
             changeActivity("Menu")
         }
@@ -73,14 +65,14 @@ class Login: AppCompatActivity() {
         }
     }
 
-    private fun loadProfile() {
+    /*private fun loadProfile() {
         val sharedPref = getSharedPreferences("UserProfile", Context.MODE_PRIVATE)
         val age = sharedPref.getString("Age", null)
         val gender = sharedPref.getInt("Gender", 0)
         val weight = sharedPref.getFloat("Weight", 0.0F)
         val height = sharedPref.getFloat("Height", 0.0F)
         val activityLevel = sharedPref.getInt("ActivityLevel", 0)
-    }
+    }*/
 
     private fun changeActivity(string: String){
         if (string == "Activity"){

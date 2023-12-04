@@ -29,9 +29,15 @@
             android:exported="false"/>
         <activity android:name=".CaloriesTracker"
             android:exported="false"/>
+        <activity android:name=".ExerciseTracker"
+            android:exported="false"/>
         <activity android:name=".Test_CaloriesTrackerView"
             android:exported="false"/>
         <activity android:name=".Test_UserView"
+            android:exported="false"/>
+        <activity android:name=".Test_ExerciseView"
+            android:exported="false"/>
+        <activity android:name=".StepTracker"
             android:exported="false"/>
         <activity android:name=".HeartBeatMain"
             android:exported="false" />

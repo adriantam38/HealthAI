@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/exercise_tracker"
                 android:backgroundTint="@color/colorAccent"
-                android:textSize="30sp"/>
+                android:textSize="30sp" />
 
             <Button
                 android:id="@+id/stepCounterButton"
@@ -45,15 +45,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/step_counter"
                 android:backgroundTint="@color/colorAccent"
-                android:textSize="30sp"/>
-
-            <Button
-                android:id="@+id/caloriesCalculationButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/calories_calculation"
-                android:backgroundTint="@color/colorAccent"
-                android:textSize="30sp"/>
+                android:textSize="30sp" />
 
             <Button
                 android:id="@+id/heartRateButton"
@@ -61,15 +53,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/heartbeat_rate_tracker"
                 android:backgroundTint="@color/colorAccent"
-                android:textSize="30sp"/>
-
-            <Button
-                android:id="@+id/summaryButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/data_summary"
-                android:backgroundTint="@color/colorAccent"
-                android:textSize="30sp"/>
+                android:textSize="30sp" />
 
             <Button
                 android:id="@+id/settingButton"
@@ -83,13 +67,25 @@
                 android:id="@+id/testCalories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="test" />
+                android:backgroundTint="@color/colorAccent"
+                android:text="@string/view_calories_record"
+                android:textSize="30sp"
+                android:visibility="visible" />
 
             <Button
                 android:id="@+id/testUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="test"/>
+                android:text="test"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/summaryButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/view_exercise_record"
+                android:backgroundTint="@color/colorAccent"
+                android:textSize="30sp" />
 
         </LinearLayout>
 

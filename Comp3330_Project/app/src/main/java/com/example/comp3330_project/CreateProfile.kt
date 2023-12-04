@@ -30,12 +30,12 @@ class CreateProfile : AppCompatActivity() {
 
     private lateinit var userSQLiteHelper: UserSQLiteHelper
 
-    private var mode: String? = "Create"
+    private var std: UserModel? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        mode = intent.getStringExtra("mode")
+        val mode = intent.getStringExtra("mode")
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
@@ -53,11 +53,7 @@ class CreateProfile : AppCompatActivity() {
 
         val returnButton = toolbar.findViewById(R.id.returnButton) as ImageButton
         returnButton.setOnClickListener {
-            if (mode == "Create") {
-                changeActivity("Activity")
-            } else if (mode == "Modify") {
-                changeActivity("Menu")
-            }
+            changeActivity("Activity")
         }
 
         nameEditText = findViewById(R.id.nameEditText)
@@ -90,25 +86,24 @@ class CreateProfile : AppCompatActivity() {
         }
 
         if (mode == "Modify") {
-
             val stdList = userSQLiteHelper.getAllRecords()
             val std = stdList[0]
-            nameEditText.setText(std.name)
-            ageEditText.setText(std.age.toString())
-            heightEditText.setText(std.height.toString())
-            weightEditText.setText(std.weight.toString())
-            passwordEditText.setText((std.password))
-            if (std.gender == 0) {
+            nameEditText.setText(std?.name)
+            ageEditText.setText(std?.age.toString())
+            heightEditText.setText(std?.height.toString())
+            weightEditText.setText(std?.weight.toString())
+            passwordEditText.setText((std?.password))
+            if (std?.gender == 0) {
                 val gender: RadioButton = findViewById(R.id.Male)
                 gender.isChecked = true
-            } else if (std.gender == 1) {
+            } else if (std?.gender == 1) {
                 val gender: RadioButton = findViewById(R.id.Female)
                 gender.isChecked = true
             }
-            if (std.activityLevel == 0) {
+            if (std?.activityLevel == 0) {
                 val level: RadioButton = findViewById(R.id.High)
                 level.isChecked = true
-            } else if (std.activityLevel == 1) {
+            } else if (std?.activityLevel == 1) {
                 val level: RadioButton = findViewById(R.id.Low)
                 level.isChecked = true
             }
@@ -147,57 +142,58 @@ class CreateProfile : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Record not added", Toast.LENGTH_LONG).show()
             }
+
+            Toast.makeText(this, password, Toast.LENGTH_LONG).show()
         }
     }
 
     private fun updateRecord() {
+        val stdList = userSQLiteHelper.getAllRecords()
+        val std = stdList[0]
         if (nameEditText.text.isEmpty() || ageEditText.text.isEmpty() || weightEditText.text.isEmpty() ||
             heightEditText.text.isEmpty() || passwordEditText.text.isEmpty()
         ) {
             Toast.makeText(this, "Please enter the required field", Toast.LENGTH_LONG).show()
         } else {
-            val stdList = userSQLiteHelper.getAllRecords()
-            val std = stdList[0]
+            if (std == null) return
             val name = nameEditText.text.toString()
             val age = ageEditText.text.toString().toInt()
             val weight = weightEditText.text.toString().toFloat()
             val height = heightEditText.text.toString().toFloat()
             val password = passwordEditText.text.toString()
-            val newStd = UserModel(
-                id = std.id,
-                name = name, age = age, height = height, weight = weight,
-                gender = selectedGender, activityLevel = selectedActivity, password = password
-            )
-            val status = userSQLiteHelper.updateRecord(newStd)
-            if (status > -1) {
-                Toast.makeText(this, "Record updated", Toast.LENGTH_SHORT).show()
-                clearEditText()
-            } else {
-                Toast.makeText(this, "Record not updated", Toast.LENGTH_LONG).show()
+                val newstd = UserModel(
+                    id = std!!.id,
+                    name = name, age = age, height = height, weight = weight,
+                    gender = selectedGender, activityLevel = selectedActivity, password = password
+                )
+                val status = userSQLiteHelper.updateRecord(newstd)
+                if (status > -1) {
+                    Toast.makeText(this, "Record updated", Toast.LENGTH_SHORT).show()
+                    clearEditText()
+                }
             }
         }
-    }
 
-    private fun changeActivity(string: String) {
-        if (string == "Activity") {
-            val intent = Intent(this@CreateProfile, MainActivity::class.java)
-            startActivity(intent)
-        } else if (string == "Menu") {
-            val intent = Intent(this@CreateProfile, MainMenu::class.java)
-            startActivity(intent)
+            private fun changeActivity(string: String) {
+                if (string == "Activity") {
+                    val intent = Intent(this@CreateProfile, MainActivity::class.java)
+                    startActivity(intent)
+                } else if (string == "Menu") {
+                    val intent = Intent(this@CreateProfile, MainMenu::class.java)
+                    startActivity(intent)
+                }
+            }
+
+            private fun clearEditText() {
+                nameEditText.setText("")
+                ageEditText.setText("")
+                heightEditText.setText("")
+                weightEditText.setText("")
+                val genderRadioGroup: RadioGroup = findViewById(R.id.gender_radio_group)
+                genderRadioGroup.clearCheck()
+                val activityRadioGroup: RadioGroup = findViewById(R.id.activity_radio_group)
+                activityRadioGroup.clearCheck()
+                passwordEditText.setText("")
+                nameEditText.requestFocus()
+            }
         }
-    }
-
-    private fun clearEditText() {
-        nameEditText.setText("")
-        ageEditText.setText("")
-        heightEditText.setText("")
-        weightEditText.setText("")
-        val genderRadioGroup: RadioGroup = findViewById(R.id.gender_radio_group)
-        genderRadioGroup.clearCheck()
-        val activityRadioGroup: RadioGroup = findViewById(R.id.activity_radio_group)
-        activityRadioGroup.clearCheck()
-        passwordEditText.setText("")
-        nameEditText.requestFocus()
-    }
-}
