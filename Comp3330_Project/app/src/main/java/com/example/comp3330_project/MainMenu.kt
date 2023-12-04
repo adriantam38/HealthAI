@@ -62,15 +62,15 @@ class MainMenu: AppCompatActivity() {
                 val intent = Intent(this, CaloriesTracker::class.java)
                 startActivity(intent)
             }
-            "exercise" -> {
-                val intent = Intent(this, MainActivity::class.java) //change CaloriesTracker later
+            "exerciseTracker" -> {
+                val intent = Intent(this, ExerciseTracker::class.java) //change CaloriesTracker later
                 startActivity(intent)
             }
-            "step" -> {
-                val intent = Intent(this, MainActivity::class.java) //change CaloriesTracker later
+            "stepTracker" -> {
+                val intent = Intent(this, StepTracker::class.java) //change CaloriesTracker later
                 startActivity(intent)
             }
-            "caloriesCalc"-> {
+            "caloriesCalculation"-> {
                 val intent = Intent(this, MainActivity::class.java) //change CaloriesTracker later
                 startActivity(intent)
             }
@@ -79,7 +79,7 @@ class MainMenu: AppCompatActivity() {
                 startActivity(intent)
             }
             "summary" ->{
-                val intent = Intent(this, MainActivity::class.java) //change CaloriesTracker later
+                val intent = Intent(this, Test_ExerciseTrackerView::class.java) //change CaloriesTracker later
                 startActivity(intent)
             }
             "setting"->{
