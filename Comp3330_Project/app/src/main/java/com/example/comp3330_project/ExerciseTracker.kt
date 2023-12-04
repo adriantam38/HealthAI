@@ -82,6 +82,9 @@ class ExerciseTracker : AppCompatActivity() {
     private fun clearEditText() {
         nameEditText.setText("")
         caloriesEditText.setText("")
+        durationEditText.setText("")
+        val selectedOption: RadioGroup = findViewById(R.id.intensityRadioGroup)
+        selectedOption.clearCheck()
         nameEditText.requestFocus()
     }
 

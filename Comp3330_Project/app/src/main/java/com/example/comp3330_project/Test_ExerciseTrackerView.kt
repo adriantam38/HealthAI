@@ -26,6 +26,9 @@ class Test_ExerciseTrackerView: AppCompatActivity(){
         val toolbar = findViewById<Toolbar>(R.id.CaloriesView_toolbar)
         setSupportActionBar(toolbar)
 
+        val textView = toolbar.findViewById(R.id.toolbar_name) as TextView
+        textView.text = "Exercise Record"
+
         val returnButton = toolbar.findViewById(R.id.returnButton) as ImageButton
         returnButton.setOnClickListener {
             changeActivity()
