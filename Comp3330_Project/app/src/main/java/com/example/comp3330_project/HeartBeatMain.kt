@@ -118,6 +118,9 @@ class HeartBeatMain : AppCompatActivity(), OnRequestPermissionsResultCallback {
             changeActivity()
         }
 
+        val textView = toolbar.findViewById(R.id.toolbar_name) as TextView
+        textView.text = "Heartbeat Rate"
+
     }
 
     override fun onRequestPermissionsResult(
