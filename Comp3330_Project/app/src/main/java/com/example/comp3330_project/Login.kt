@@ -25,13 +25,13 @@ class Login: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        userSQLiteHelper = UserSQLiteHelper(this)
+
         val toolbar = findViewById<Toolbar>(R.id.login_toolbar)
         setSupportActionBar(toolbar)
 
         val textView = toolbar.findViewById(R.id.toolbar_name) as TextView
         textView.text = "Login"
-
-        userSQLiteHelper = UserSQLiteHelper(this)
 
         returnButton = toolbar.findViewById(R.id.returnButton) as ImageButton
         returnButton.setOnClickListener {

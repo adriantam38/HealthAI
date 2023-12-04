@@ -1,6 +1,7 @@
 package com.example.comp3330_project
 
 import android.content.Context
+import android.content.Intent
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -8,8 +9,11 @@ import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
+
 class StepTracker : AppCompatActivity(), SensorEventListener {
     // Added SensorEventListener the MainActivity class
     // Implement all the members in the class MainActivity
@@ -33,6 +37,17 @@ class StepTracker : AppCompatActivity(), SensorEventListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_steptracker)
+
+        val toolbar = findViewById<Toolbar>(R.id.Step_toolbar)
+        setSupportActionBar(toolbar)
+
+        val textView = toolbar.findViewById(R.id.toolbar_name) as TextView
+        textView.text = "Step Counter"
+
+        val returnButton = toolbar.findViewById(R.id.returnButton) as ImageButton
+        returnButton.setOnClickListener {
+            changeActivity()
+        }
 
         loadData()
         resetSteps()
@@ -126,5 +141,10 @@ class StepTracker : AppCompatActivity(), SensorEventListener {
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
         // We do not have to write anything in this function for this app
+    }
+
+    private fun changeActivity() {
+        val intent = Intent(this, MainMenu::class.java)
+        startActivity(intent)
     }
 }

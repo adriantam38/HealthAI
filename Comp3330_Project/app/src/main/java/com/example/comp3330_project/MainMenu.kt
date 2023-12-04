@@ -30,11 +30,6 @@ class MainMenu: AppCompatActivity() {
             changeActivity("heartbeat")
         }
 
-        val summaryButton: Button = findViewById(R.id.summaryButton)
-        summaryButton.setOnClickListener{
-            changeActivity("test_exercise")
-        }
-
         val settingButton: Button = findViewById(R.id.settingButton)
         settingButton.setOnClickListener {
             changeActivity("setting")
@@ -48,6 +43,11 @@ class MainMenu: AppCompatActivity() {
         val testUser: Button = findViewById(R.id.testUser)
         testUser.setOnClickListener {
             changeActivity("test_user")
+        }
+
+        val testExercise: Button = findViewById(R.id.testExercise)
+        testExercise.setOnClickListener{
+            changeActivity("test_exercise")
         }
     }
 
@@ -82,8 +82,8 @@ class MainMenu: AppCompatActivity() {
                 val intent = Intent(this, Test_UserView::class.java)
                 startActivity(intent)
             }
-            "test_exercise" ->{
-                val intent = Intent(this, Test_ExerciseView::class.java) //change CaloriesTracker later
+            "test_exercise"->{
+                val intent = Intent(this, Test_ExerciseTrackerView::class.java)
                 startActivity(intent)
             }
         }

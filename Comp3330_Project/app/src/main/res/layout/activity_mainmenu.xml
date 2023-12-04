@@ -80,7 +80,7 @@
                 android:visibility="gone" />
 
             <Button
-                android:id="@+id/summaryButton"
+                android:id="@+id/testExercise"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/view_exercise_record"

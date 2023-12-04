@@ -39,7 +39,7 @@
             android:exported="false"/>
         <activity android:name=".Test_UserView"
             android:exported="false"/>
-        <activity android:name=".Test_ExerciseView"
+        <activity android:name=".Test_ExerciseTrackerView"
             android:exported="false"/>
         <activity android:name=".StepTracker"
             android:exported="false"/>
