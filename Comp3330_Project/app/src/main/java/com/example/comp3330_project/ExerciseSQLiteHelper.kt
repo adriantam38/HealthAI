@@ -24,7 +24,7 @@ class ExerciseSQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE
     override fun onCreate(db: SQLiteDatabase?) {
         val createTbl = ("CREATE TABLE " + TBL_EXERCISE + "(" +
                 ID + " INTEGER PRIMARY KEY, " + USERID + " INTEGER, " +
-                NAME + " TEXT, " + CALORIES + " INTEGER" + INTENSITY + " TEXT" +
+                NAME + " TEXT, " + CALORIES + " INTEGER, " + INTENSITY + " TEXT, " +
                 DURATION + " INTEGER" +")")
         db?.execSQL(createTbl)
     }

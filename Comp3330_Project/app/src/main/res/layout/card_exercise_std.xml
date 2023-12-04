@@ -29,6 +29,18 @@
             android:text="TextView" />
 
         <TextView
+            android:id="@+id/Intensity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/Duration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
             android:id="@+id/Value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

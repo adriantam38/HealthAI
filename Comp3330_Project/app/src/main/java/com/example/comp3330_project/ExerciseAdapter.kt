@@ -1,7 +1,6 @@
 package com.example.comp3330_project
 
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -40,8 +39,6 @@ class ExerciseAdapter: RecyclerView.Adapter<ExerciseAdapter.RecordViewHolder>() 
     }
 
     class RecordViewHolder(var view: View): RecyclerView.ViewHolder(view){
-        private var id = view.findViewById<TextView>(R.id.RecordID)
-        private var userID = view.findViewById<TextView>(R.id.UserID)
         private var name = view.findViewById<TextView>(R.id.Name)
         private var intensity = view.findViewById<TextView>(R.id.Intensity)
         private var duration = view.findViewById<TextView>(R.id.Duration)
@@ -49,8 +46,6 @@ class ExerciseAdapter: RecyclerView.Adapter<ExerciseAdapter.RecordViewHolder>() 
         var deleteButton = view.findViewById<Button>(R.id.deleteButton)
 
         fun bindView(std:ExerciseModel) {
-            id.text = std.id.toString()
-            userID.text = std.userID.toString()
             name.text = std.name
             value.text = std.calories.toString()
             intensity.text = std.intensity

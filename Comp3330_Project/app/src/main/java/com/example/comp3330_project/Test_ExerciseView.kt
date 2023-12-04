@@ -12,39 +12,40 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class Test_CaloriesTrackerView: AppCompatActivity(){
+class Test_ExerciseView: AppCompatActivity(){
     private lateinit var viewButton: Button
-    private lateinit var caloriesSqLiteHelper: CaloriesSQLiteHelper
+    private lateinit var exerciseSqLiteHelper: ExerciseSQLiteHelper
 
     private lateinit var recyclerView: RecyclerView
-    private var adapter:CaloriesAdapter? = null
+    private var adapter:ExerciseAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.test_activity_calories_record_veiwer)
+        setContentView(R.layout.test_activity_exercise_record_veiwer)
 
-        val toolbar = findViewById<Toolbar>(R.id.CaloriesView_toolbar)
+        val toolbar = findViewById<Toolbar>(R.id.ExerciseView_toolbar)
         setSupportActionBar(toolbar)
 
         val returnButton = toolbar.findViewById(R.id.returnButton) as ImageButton
         returnButton.setOnClickListener {
             changeActivity()
         }
+
         val textView = toolbar.findViewById(R.id.toolbar_name) as TextView
-        textView.text = "Calories Record"
+        textView.text = "Exercise Record"
 
         initRecyclerView()
 
         viewButton = findViewById(R.id.viewButton)
-        caloriesSqLiteHelper = CaloriesSQLiteHelper(this)
-        viewButton.setOnClickListener { getCalories() }
+        exerciseSqLiteHelper = ExerciseSQLiteHelper(this)
+        viewButton.setOnClickListener { getExercise() }
         adapter?.setOnClickDeleteItem {
             deleteRecord(it.id)
         }
     }
 
-    private fun getCalories() {
-        val stdList = caloriesSqLiteHelper.getAllRecords()
+    private fun getExercise() {
+        val stdList = exerciseSqLiteHelper.getAllRecords()
         Log.v("pppp", "${stdList.size}")
 
         adapter?.addItems(stdList)
@@ -53,7 +54,7 @@ class Test_CaloriesTrackerView: AppCompatActivity(){
     private fun initRecyclerView(){
         recyclerView = findViewById(R.id.RecordRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = CaloriesAdapter()
+        adapter = ExerciseAdapter()
         recyclerView.adapter = adapter
     }
 
@@ -63,12 +64,12 @@ class Test_CaloriesTrackerView: AppCompatActivity(){
         builder.setMessage("Are you sure you want to delete this item?")
         builder.setCancelable(true)
         builder.setPositiveButton("Yes"){
-            dialog, _ ->dialog.dismiss()
-            caloriesSqLiteHelper.deleteRecordsById(id)
-            getCalories()
+                dialog, _ ->dialog.dismiss()
+            exerciseSqLiteHelper.deleteRecordsById(id)
+            getExercise()
         }
         builder.setNegativeButton("No"){
-            dialog, _ -> dialog.dismiss()
+                dialog, _ -> dialog.dismiss()
         }
         val alert = builder.create()
         alert.show()

@@ -1,7 +1,6 @@
 package com.example.comp3330_project
 
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -40,15 +39,11 @@ class CaloriesAdapter: RecyclerView.Adapter<CaloriesAdapter.RecordViewHolder>() 
     }
 
     class RecordViewHolder(var view: View): RecyclerView.ViewHolder(view){
-        private var id = view.findViewById<TextView>(R.id.RecordID)
-        private var userID = view.findViewById<TextView>(R.id.UserID)
         private var name = view.findViewById<TextView>(R.id.Name)
         private var value = view.findViewById<TextView>(R.id.Value)
         var deleteButton = view.findViewById<Button>(R.id.deleteButton)
 
         fun bindView(std:CaloriesModel) {
-            id.text = std.id.toString()
-            userID.text = std.userID.toString()
             name.text = std.name
             value.text = std.calories.toString()
         }

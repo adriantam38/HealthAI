@@ -16,14 +16,15 @@ import androidx.appcompat.widget.Toolbar
 class CreateProfile : AppCompatActivity() {
     private lateinit var nameEditText: EditText
     private lateinit var ageEditText: EditText
-
-    private lateinit var gender: RadioGroup
-    private var selectedGender: Int = 0
-
     private lateinit var heightEditText: EditText
     private lateinit var weightEditText: EditText
 
-    private lateinit var activity: RadioGroup
+    private lateinit var male: RadioButton
+    private lateinit var female: RadioButton
+    private var selectedGender: Int = 0
+
+    private lateinit var highLevel: RadioButton
+    private lateinit var lowLevel: RadioButton
     private var selectedActivity: Int = 0
 
     private lateinit var passwordEditText: EditText
@@ -53,36 +54,37 @@ class CreateProfile : AppCompatActivity() {
 
         val returnButton = toolbar.findViewById(R.id.returnButton) as ImageButton
         returnButton.setOnClickListener {
-            changeActivity("Activity")
+            if (mode == "Create") {
+                changeActivity("Activity")
+            } else if (mode == "Modify") {
+                changeActivity("Menu")
+            }
+
         }
 
         nameEditText = findViewById(R.id.nameEditText)
         ageEditText = findViewById(R.id.ageEditText)
         heightEditText = findViewById(R.id.heightEditText)
         weightEditText = findViewById(R.id.weightEditText)
+        male = findViewById(R.id.Male)
+        female = findViewById(R.id.Female)
+        highLevel = findViewById(R.id.High)
+        lowLevel = findViewById(R.id.Low)
+
         userSQLiteHelper = UserSQLiteHelper(this)
 
         passwordEditText = findViewById(R.id.ProfileNameEditText)
 
-        gender = findViewById(R.id.gender_radio_group)
-        gender.setOnCheckedChangeListener { _, checkedId ->
-            val radio: RadioButton = findViewById(checkedId)
-            if (radio.text == "Male") {
-                selectedGender = 0
-            } else if (radio.text == "Female") {
-                selectedGender = 1
-            }
+        if (male.isChecked) {
+            selectedGender = 0
+        } else if (female.isChecked) {
+            selectedGender = 1
         }
 
-        activity = findViewById(R.id.activity_radio_group)
-        activity.setOnCheckedChangeListener { _, checkedId ->
-            val radio: RadioButton = findViewById(checkedId)
-            if (radio.text == "High") {
-                selectedActivity = 0
-            } else if (radio.text == "Low") {
-                selectedActivity = 1
-            }
-
+        if (highLevel.isChecked) {
+            selectedActivity = 0
+        } else if (lowLevel.isChecked) {
+            selectedActivity = 1
         }
 
         if (mode == "Modify") {
