@@ -24,7 +24,7 @@ class ExerciseAdapter: RecyclerView.Adapter<ExerciseAdapter.RecordViewHolder>() 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ) = RecordViewHolder (LayoutInflater.from(parent.context).inflate(R.layout.card_calories_std, parent, false))
+    ) = RecordViewHolder (LayoutInflater.from(parent.context).inflate(R.layout.card_exercise_std, parent, false))
 
     override fun onBindViewHolder(
         holder: RecordViewHolder,
