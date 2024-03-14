@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.speech.tts.TextToSpeech
-import android.text.format.DateFormat
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -61,9 +60,7 @@ import com.example.elec4848_sdp.functions.exercisetraining.util.MyUtils.Companio
 import com.example.elec4848_sdp.functions.exercisetraining.util.MyUtils.Companion.databaseNameToClassification
 import com.example.elec4848_sdp.functions.exercisetraining.util.MyUtils.Companion.exerciseNameToDisplay
 import com.example.elec4848_sdp.functions.exercisetraining.util.VisionImageProcessor
-//import com.example.elec4848_sdp.functions.exercisetraining.viewmodels.AddPlanViewModel
 import com.example.elec4848_sdp.functions.exercisetraining.viewmodels.CameraXViewModel
-//import com.example.elec4848_sdp.functions.exercisetraining.viewmodels.HomeViewModel
 import com.example.elec4848_sdp.functions.exercisetraining.viewmodels.ResultViewModel
 import com.example.elec4848_sdp.views.function_views.ExerciseTraining
 import com.example.elec4848_sdp.functions.exercisetraining.views.fragment.preference.PreferenceUtils
@@ -72,7 +69,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.mlkit.common.MlKitException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.util.Date
 import java.util.Locale
 import java.util.Timer
@@ -94,7 +90,6 @@ class WorkOutFragment : Fragment(), MemoryManagement {
     private var selectedModel = POSE_DETECTION
     private var lensFacing = CameraSelector.LENS_FACING_BACK
     private var cameraSelector: CameraSelector? = null
-    private var today: String = DateFormat.format("EEEE", Date()) as String
     private var runOnce: Boolean = false
     private var isAllWorkoutFinished: Boolean = false
     private var mRecTimer: Timer? = null
@@ -120,8 +115,6 @@ class WorkOutFragment : Fragment(), MemoryManagement {
     private lateinit var timerRecordIcon: ImageView
     private lateinit var workoutRecyclerView: RecyclerView
     private lateinit var workoutAdapter: WorkoutAdapter
-//    private lateinit var homeViewModel: HomeViewModel
-//    private lateinit var addPlanViewModel: AddPlanViewModel
     private lateinit var startButton: Button
     private lateinit var buttonCompleteExercise: Button
     private lateinit var buttonCancelExercise: Button
@@ -150,8 +143,6 @@ class WorkOutFragment : Fragment(), MemoryManagement {
                 .getInstance(requireActivity().application)
         )[CameraXViewModel::class.java]
         resultViewModel = ResultViewModel(MyApplication.getInstance())
-//        addPlanViewModel = AddPlanViewModel(MyApplication.getInstance())
-//        homeViewModel = HomeViewModel(MyApplication.getInstance())
     }
 
     override fun onCreateView(
@@ -324,10 +315,6 @@ class WorkOutFragment : Fragment(), MemoryManagement {
         // get the list of plans from database
         lifecycleScope.launch(Dispatchers.IO) {
 
-            // get not completed exercise from database using coroutine
-//            notCompletedExercise =
-//                withContext(Dispatchers.IO) { homeViewModel.getNotCompletePlans(today) }
-
             // Create a set to track unique exercises
             val uniqueExercises = mutableSetOf<String>()
 
@@ -460,11 +447,6 @@ class WorkOutFragment : Fragment(), MemoryManagement {
                             // Update complete status for existing plan
                             if (data.planId != null) {
                                 lifecycleScope.launch(Dispatchers.IO) {
-//                                    addPlanViewModel.updateComplete(
-//                                        true,
-//                                        System.currentTimeMillis(),
-//                                        data.planId
-//                                    )
                                 }
                             }
                         } else if (data.isComplete) {
@@ -637,7 +619,7 @@ class WorkOutFragment : Fragment(), MemoryManagement {
         // Bind all camera use cases (preview and analysis)
         bindPreviewUseCase()
         cameraViewModel.triggerClassification.observe(viewLifecycleOwner) { pressed ->
-            bindAnalysisUseCase(pressed, notCompletedPlan)
+            bindAnalysisUseCase(pressed)
         }
     }
 
@@ -669,7 +651,7 @@ class WorkOutFragment : Fragment(), MemoryManagement {
     /**
      * bind analysis use case
      */
-    private fun bindAnalysisUseCase(runClassification: Boolean, notCompletedPlan: List<Plan>) {
+    private fun bindAnalysisUseCase(runClassification: Boolean) {
         if (cameraProvider == null) {
             return
         }
@@ -703,7 +685,6 @@ class WorkOutFragment : Fragment(), MemoryManagement {
                         runClassification,
                         true,
                         cameraViewModel,
-//                        notCompletedPlan
                     )
                 }
 

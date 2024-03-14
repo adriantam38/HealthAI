@@ -20,10 +20,6 @@ class ResultViewModel(application: Application) : AndroidViewModel(application) 
         repository.insertResult(result)
     }
 
-    // Coroutine function to retrieve all workout results from the repository
-    suspend fun getAllResult(): List<WorkoutResult>? =
-        repository.getAllResult()
-
     // Coroutine function to retrieve 10 recent workout results from the repository
     suspend fun getRecentWorkout(): List<WorkoutResult>? = repository.getRecentWorkout()
 
