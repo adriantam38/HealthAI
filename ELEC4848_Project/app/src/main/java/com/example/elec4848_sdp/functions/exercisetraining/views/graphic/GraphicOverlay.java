@@ -1,5 +1,3 @@
-
-
 package com.example.elec4848_sdp.functions.exercisetraining.views.graphic;
 
 import static java.lang.Math.max;

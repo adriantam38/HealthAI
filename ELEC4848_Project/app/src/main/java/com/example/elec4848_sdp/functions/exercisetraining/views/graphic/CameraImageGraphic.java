@@ -1,4 +1,3 @@
-
 package com.example.elec4848_sdp.functions.exercisetraining.views.graphic;
 
 import android.graphics.Bitmap;

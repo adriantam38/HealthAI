@@ -4,8 +4,6 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-//import androidx.room.TypeConverters
-//import com.example.elec4848_sdp.functions.exercisetraining.data.results.DateConverters
 import com.example.elec4848_sdp.functions.exercisetraining.data.results.WorkoutResult
 import com.example.elec4848_sdp.functions.exercisetraining.data.results.WorkoutResultDao
 
@@ -14,7 +12,6 @@ import com.example.elec4848_sdp.functions.exercisetraining.data.results.WorkoutR
     version = 7,
     exportSchema = false
 )
-//@TypeConverters(DateConverters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun resultDao(): WorkoutResultDao
 
