@@ -1,4 +1,4 @@
-# COMP3330-Project
+# HealthAI
 
 NutriHealth
 
