@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "433521649937",
+    "project_id": "poseexercise",
+    "storage_bucket": "poseexercise.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:433521649937:android:44a096faafb076d23184b0",
+        "android_client_info": {
+          "package_name": "com.example.elec4848_sdp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1ErUXJ_WXLhi2KdvzsRJ8HmyWTXuqXDw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

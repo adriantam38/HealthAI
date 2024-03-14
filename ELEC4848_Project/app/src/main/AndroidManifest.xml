@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-feature
+        android:name="android.hardware.sensor.stepcounter"
+        android:required="true"/>
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true"/>
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
+
+
+    <application
+        android:name=".functions.exercisetraining.util.MyApplication"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/logo"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        tools:remove="android:appComponentFactory"
+        tools:targetApi="31">
+
+        <service android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
+            android:enabled="false"
+            android:exported="false">
+            <meta-data
+                android:name="autoStoreLocales"
+                android:value="true" />
+        </service>
+        <activity android:name=".views.main_views.Login"
+            android:exported="false" />
+        <activity android:name=".views.function_views.CreateProfile"
+            android:exported="false" />
+        <activity android:name=".views.main_views.MainMenu"
+            android:exported="false"/>
+        <activity android:name=".views.function_views.CaloriesTracker"
+            android:exported="false"/>
+        <activity android:name=".views.function_views.ExerciseTracker"
+            android:exported="false"/>
+        <activity android:name=".views.function_views.CaloriesRecord"
+            android:exported="false"/>
+        <activity android:name=".views.function_views.UserSettings"
+            android:exported="false"/>
+        <activity android:name=".views.function_views.ExerciseRecord"
+            android:exported="false"/>
+        <activity android:name=".views.function_views.StepTracker"
+            android:exported="false"/>
+        <activity android:name=".views.function_views.PulseDetector"
+            android:exported="false" />
+        <activity android:name=".views.function_views.ExerciseTraining"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".views.activity.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
