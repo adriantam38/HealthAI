@@ -4,21 +4,18 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
-import com.example.elec4848_sdp.functions.exercisetraining.data.plan.Plan
-import com.example.elec4848_sdp.functions.exercisetraining.data.plan.PlanDataDao
-import com.example.elec4848_sdp.functions.exercisetraining.data.results.DateConverters
+//import androidx.room.TypeConverters
+//import com.example.elec4848_sdp.functions.exercisetraining.data.results.DateConverters
 import com.example.elec4848_sdp.functions.exercisetraining.data.results.WorkoutResult
 import com.example.elec4848_sdp.functions.exercisetraining.data.results.WorkoutResultDao
 
 @Database(
-    entities = [Plan::class, WorkoutResult::class],
+    entities = [WorkoutResult::class],
     version = 7,
     exportSchema = false
 )
-@TypeConverters(DateConverters::class)
+//@TypeConverters(DateConverters::class)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun planDao(): PlanDataDao
     abstract fun resultDao(): WorkoutResultDao
 
     companion object {
@@ -36,7 +33,7 @@ abstract class AppDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "repdetect_database.db"
+                    "healthai_database.db"
                 )
                     .fallbackToDestructiveMigration()
                     .build()
