@@ -6,6 +6,7 @@ import android.graphics.Path
 import android.view.TextureView
 import java.util.concurrent.CopyOnWriteArrayList
 
+//Class for drawing the chart during pulse detection
 internal class ChartDrawer(private val chartTextureView: TextureView) {
     private val paint = Paint()
     private val fillWhite = Paint()

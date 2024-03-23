@@ -56,14 +56,6 @@
                 android:textSize="30sp" />
 
             <Button
-                android:id="@+id/stepCounterButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/step_counter"
-                android:backgroundTint="@color/colorAccent"
-                android:textSize="30sp" />
-
-            <Button
                 android:id="@+id/testCalories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

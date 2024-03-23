@@ -4,12 +4,12 @@
     <item
         android:onClick="onClickNewMeasurement"
         android:title="@string/new_measurement" />
-    <item
-        android:onClick="onClickExportResult"
-        android:title="@string/export_result"
-        android:visible="false" />
-    <item
-        android:onClick="onClickExportDetails"
-        android:title="@string/export_details"
-        android:visible="false" />
+<!--    <item-->
+<!--        android:onClick="onClickExportResult"-->
+<!--        android:title="@string/export_result"-->
+<!--        android:visible="false" />-->
+<!--    <item-->
+<!--        android:onClick="onClickExportDetails"-->
+<!--        android:title="@string/export_details"-->
+<!--        android:visible="false" />-->
 </menu>

@@ -52,6 +52,7 @@ class HomeFragment : Fragment(), MemoryManagement {
             val workoutResults = resultViewModel.getRecentWorkout()
             // Call the function to load data and set up the chart
             // Transform WorkoutResult objects into RecentActivityItem objects
+            // imageResources used to change the colour of items for recent activity
             val imageResources = arrayOf(R.drawable.blue, R.drawable.green, R.drawable.orange)
             // Transform WorkoutResult objects into RecentActivityItem objects
             val recentActivityItems = workoutResults?.mapIndexed { index, it ->

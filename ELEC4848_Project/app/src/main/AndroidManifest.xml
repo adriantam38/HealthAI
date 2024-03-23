@@ -53,8 +53,6 @@
             android:exported="false"/>
         <activity android:name=".views.function_views.ExerciseRecord"
             android:exported="false"/>
-        <activity android:name=".views.function_views.StepTracker"
-            android:exported="false"/>
         <activity android:name=".views.function_views.PulseDetector"
             android:exported="false" />
         <activity android:name=".views.function_views.ExerciseTraining"

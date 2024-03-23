@@ -7,7 +7,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.speech.tts.TextToSpeech
+//import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -128,7 +128,7 @@ class WorkOutFragment : Fragment(), MemoryManagement {
     private lateinit var loadProgress: ProgressBar
     private lateinit var completeAllExercise: TextView
     private lateinit var skipButton: Button
-    private lateinit var textToSpeech: TextToSpeech
+//    private lateinit var textToSpeech: TextToSpeech
     private lateinit var yogaPoseImage: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -136,7 +136,7 @@ class WorkOutFragment : Fragment(), MemoryManagement {
         if (!allRuntimePermissionsGranted()) {
             getRuntimePermissions()
         }
-        initTextToSpeech()
+//        initTextToSpeech()
         cameraSelector = CameraSelector.Builder().requireLensFacing(lensFacing).build()
         cameraViewModel = ViewModelProvider(
             this, ViewModelProvider.AndroidViewModelFactory
@@ -206,7 +206,7 @@ class WorkOutFragment : Fragment(), MemoryManagement {
 
         // Cancel the exercise
         buttonCancelExercise.setOnClickListener {
-            synthesizeSpeech("Workout Cancelled")
+//            synthesizeSpeech("Workout Cancelled")
             stopMediaTimer()
             Navigation.findNavController(view)
                 .navigate(R.id.action_workoutFragment_to_cancelFragment)
@@ -229,7 +229,7 @@ class WorkOutFragment : Fragment(), MemoryManagement {
         val shoulderPress = Postures.shoulderpress
 
         buttonCompleteExercise.setOnClickListener {
-            synthesizeSpeech("Workout Complete")
+//            synthesizeSpeech("Workout Complete")
             cameraViewModel.postureLiveData.value?.let {
                 //val builder = StringBuilder()
                 for ((_, value) in it) {
@@ -353,36 +353,6 @@ class WorkOutFragment : Fragment(), MemoryManagement {
                 cameraFlipFAB.visibility = View.GONE
             }
             viewPager.adapter = exerciseGifAdapter
-
-            notCompletedExercise?.forEach { item ->
-                val exercisePlan =
-                    ExercisePlan(
-                        item.id,
-                        databaseNameToClassification(item.exercise),
-                        item.repeatCount
-                    )
-                val existingExercisePlan =
-                    databaseExercisePlan.find {
-                        it.planId == item.id
-                    }
-                if (existingExercisePlan != null) {
-                    // Update repetitions if ExercisePlan with the same exerciseName already exists
-                    existingExercisePlan.repetitions += item.repeatCount
-                } else {
-                    // Add a new ExercisePlan if not already in the databaseExercisePlan
-                    databaseExercisePlan.add(exercisePlan)
-                }
-            }
-            // Push the planned exercise name in exercise Log
-            databaseExercisePlan.forEach {
-                exerciseLog.addExercise(
-                    it.planId,
-                    it.exerciseName,
-                    0,
-                    0f,
-                    false
-                )
-            }
         }
 
         // Declare variables to store previous values
@@ -434,12 +404,12 @@ class WorkOutFragment : Fragment(), MemoryManagement {
                                 true
                             )
                             // inform the user about completion only once
-                            synthesizeSpeech(exerciseNameToDisplay(key) + " exercise Complete")
+//                            synthesizeSpeech(exerciseNameToDisplay(key) + " exercise Complete")
                             // check if all the exercise list complete if yes tell all exercise is complete
                             if (exerciseLog.areAllExercisesCompleted(databaseExercisePlan)) {
                                 val handler = Handler(Looper.getMainLooper())
                                 handler.postDelayed({
-                                    synthesizeSpeech("Congratulation! all the planned exercise completed")
+//                                    synthesizeSpeech("Congratulation! all the planned exercise completed")
                                     isAllWorkoutFinished = true
                                     completeAllExercise.visibility = View.VISIBLE
                                 }, 5000)
@@ -492,6 +462,7 @@ class WorkOutFragment : Fragment(), MemoryManagement {
                             )
                             yogaPoseImage.visibility = View.VISIBLE
 
+                            //show image of yoga type during exercise
                             if (key !== previousKey) {
                                 yogaPoseImage.setImageResource(getDrawableResourceIdYoga(key))
                             }
@@ -516,7 +487,7 @@ class WorkOutFragment : Fragment(), MemoryManagement {
                 runOnce = true
                 loadingTV.visibility = View.GONE
                 loadProgress.visibility = View.GONE
-                synthesizeSpeech("ready to start")
+//                synthesizeSpeech("ready to start")
                 startMediaTimer()
                 timerTextView.visibility = View.VISIBLE
                 timerRecordIcon.visibility = View.VISIBLE
@@ -544,6 +515,7 @@ class WorkOutFragment : Fragment(), MemoryManagement {
     /**
      * List of yoga images
      */
+    //for showing yoga image during workout
     private val yogaPoseImages = mapOf(
         WARRIOR_CLASS to R.drawable.warrior_yoga_pose,
         YOGA_TREE_CLASS to R.drawable.tree_yoga_pose
@@ -552,28 +524,6 @@ class WorkOutFragment : Fragment(), MemoryManagement {
     private fun getDrawableResourceIdYoga(yogaPoseKey: String): Int {
         return yogaPoseImages[yogaPoseKey]
             ?: throw IllegalArgumentException("Invalid yoga pose key: $yogaPoseKey")
-    }
-
-    /**
-     * Initialize TextToSpeech engine
-     */
-    private fun initTextToSpeech() {
-        textToSpeech = TextToSpeech(context) {
-            if (it == TextToSpeech.SUCCESS) {
-                // Set language to US English and speech rate to 1.0
-                textToSpeech.language = Locale.US
-                textToSpeech.setSpeechRate(1.0f)
-            }
-        }
-    }
-
-    /**
-     * Synthesize speech using TextToSpeech
-     */
-    private fun synthesizeSpeech(name: String) {
-        lifecycleScope.launch(Dispatchers.Default) {
-            textToSpeech.speak(name, TextToSpeech.QUEUE_ADD, null, null)
-        }
     }
 
     /**
@@ -941,10 +891,6 @@ class WorkOutFragment : Fragment(), MemoryManagement {
      * in WorkOutFragment
      */
     override fun clearMemory() {
-        if (!textToSpeech.isSpeaking) {
-            textToSpeech.stop()
-        }
-        textToSpeech.shutdown()
         previewView = null
         graphicOverlay = null
         cameraProvider = null

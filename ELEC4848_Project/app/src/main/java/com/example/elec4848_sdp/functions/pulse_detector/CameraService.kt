@@ -18,11 +18,13 @@ import androidx.core.app.ActivityCompat
 import com.example.elec4848_sdp.views.function_views.PulseDetector
 import java.util.Objects
 
+//Class for calling phone camera service, catch any exceptions
 internal class CameraService(private val activity: Activity, private val handler: Handler) {
     private var cameraId: String? = null
     private var cameraDevice: CameraDevice? = null
     private var previewSession: CameraCaptureSession? = null
     private var previewCaptureRequestBuilder: CaptureRequest.Builder? = null
+
     fun start(previewSurface: Surface) {
         val cameraManager = activity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
         try {

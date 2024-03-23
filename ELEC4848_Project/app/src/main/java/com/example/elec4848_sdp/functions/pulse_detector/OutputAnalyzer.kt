@@ -151,25 +151,9 @@ internal class OutputAnalyzer(
                 )
                 sendMessage(PulseDetector.MESSAGE_UPDATE_REALTIME, currentValue)
                 val returnValueSb = StringBuilder()
+                //Return result to the user
                 returnValueSb.append(currentValue)
                 returnValueSb.append(activity.getString(R.string.row_separator))
-
-                // look for "drops" of 0.15 - 0.75 in the value
-                // a drop may take 2-3 ticks.
-                // int dropCount = 0;
-                // for (int stdValueIdx = 4; stdValueIdx < stdValues.size(); stdValueIdx++) {
-                //     if (((stdValues.get(stdValueIdx - 2).measurement - stdValues.get(stdValueIdx).measurement) > dropHeight) &&
-                //             !((stdValues.get(stdValueIdx - 3).measurement - stdValues.get(stdValueIdx - 1).measurement) > dropHeight) &&
-                //            !((stdValues.get(stdValueIdx - 4).measurement - stdValues.get(stdValueIdx - 2).measurement) > dropHeight)
-                //    ) {
-                //        dropCount++;
-                //    }
-                // }
-
-                // returnValueSb.append(activity.getString(R.string.detected_pulse));
-                // returnValueSb.append(activity.getString(R.string.separator));
-                // returnValueSb.append((float) dropCount / ((float) (measurementLength - clipLength) / 1000f / 60f));
-                // returnValueSb.append(activity.getString(R.string.row_separator));
                 returnValueSb.append(activity.getString(R.string.raw_values))
                 returnValueSb.append(activity.getString(R.string.row_separator))
                 for (stdValueIdx in stdValues.indices) {
@@ -196,7 +180,6 @@ internal class OutputAnalyzer(
                 cameraService.stop()
             }
         }
-//        activity.setViewState(HeartBeatMain.VIEW_STATE.MEASUREMENT)
         (timer as CountDownTimer).start()
     }
 

@@ -11,7 +11,6 @@ import com.example.elec4848_sdp.views.function_views.CreateProfile
 import com.example.elec4848_sdp.views.function_views.ExerciseTracker
 import com.example.elec4848_sdp.views.function_views.ExerciseRecord
 import com.example.elec4848_sdp.views.function_views.PulseDetector
-import com.example.elec4848_sdp.views.function_views.StepTracker
 import com.example.elec4848_sdp.views.function_views.UserSettings
 import com.example.elec4848_sdp.views.function_views.ExerciseTraining
 
@@ -28,11 +27,6 @@ class MainMenu: AppCompatActivity() {
         val exerciseTrackButton: Button = findViewById(R.id.exerciseTrackerButton)
         exerciseTrackButton.setOnClickListener{
             changeActivity("exerciseTracker")
-        }
-
-        val stepCountButton: Button = findViewById(R.id.stepCounterButton)
-        stepCountButton.setOnClickListener{
-            changeActivity("stepTracker")
         }
 
         val heartRateButton: Button = findViewById(R.id.heartRateButton)
@@ -74,10 +68,6 @@ class MainMenu: AppCompatActivity() {
             }
             "exerciseTracker" -> {
                 val intent = Intent(this, ExerciseTracker::class.java) //change CaloriesTracker later
-                startActivity(intent)
-            }
-            "stepTracker" -> {
-                val intent = Intent(this, StepTracker::class.java) //change CaloriesTracker later
                 startActivity(intent)
             }
             "heartbeat" ->{

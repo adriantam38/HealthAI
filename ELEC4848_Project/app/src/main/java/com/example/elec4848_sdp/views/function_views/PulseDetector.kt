@@ -1,6 +1,5 @@
 package com.example.elec4848_sdp.views.function_views
 
-
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -27,19 +26,10 @@ import com.example.elec4848_sdp.functions.pulse_detector.OutputAnalyzer
 import com.example.elec4848_sdp.R
 import com.example.elec4848_sdp.views.main_views.MainMenu
 import com.google.android.material.snackbar.Snackbar
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 class PulseDetector : AppCompatActivity(), OnRequestPermissionsResultCallback {
     private var analyzer: OutputAnalyzer? = null
     private val REQUEST_CODE_CAMERA = 0
-
-    enum class VIEW_STATE {
-        MEASUREMENT, SHOW_RESULTS
-    }
-
-    private var justShared = false
 
     @SuppressLint("HandlerLeak")
     private val mainHandler: Handler = object : Handler(Looper.getMainLooper()) {
@@ -50,12 +40,6 @@ class PulseDetector : AppCompatActivity(), OnRequestPermissionsResultCallback {
             }
             if (msg.what == MESSAGE_UPDATE_FINAL) {
                 (findViewById<View>(R.id.editText) as EditText).setText(msg.obj.toString())
-
-                // make sure menu items are enabled when it opens.
-                /*val appMenu = (findViewById<View>(R.id.HeartBeat_toolbar) as Toolbar).menu
-                setViewState(com.example.comp3330_project.HeartBeatMain.VIEW_STATE.SHOW_RESULTS)*/
-
-
             }
             if (msg.what == MESSAGE_CAMERA_NOT_AVAILABLE) {
                 Log.println(Log.WARN, "camera", msg.obj.toString())
@@ -67,37 +51,6 @@ class PulseDetector : AppCompatActivity(), OnRequestPermissionsResultCallback {
         }
     }
     private val cameraService: CameraService = CameraService(this, mainHandler)
-    /*override fun onResume() {
-        super.onResume()
-        analyzer = OutputAnalyzer(this, findViewById(R.id.graphTextureView), mainHandler)
-        val cameraTextureView = findViewById<TextureView>(R.id.textureView2)
-        val previewSurfaceTexture = cameraTextureView.surfaceTexture
-
-        // justShared is set if one clicks the share button.
-        if (previewSurfaceTexture != null && !justShared) {
-            // this first appears when we close the application and switch back
-            // - TextureView isn't quite ready at the first onResume.
-            val previewSurface = Surface(previewSurfaceTexture)
-
-            // show warning when there is no flash
-            if (!this.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
-                Snackbar.make(
-                    findViewById(R.id.constraintLayout),
-                    getString(R.string.noFlashWarning),
-                    Snackbar.LENGTH_LONG
-                ).show()
-            }
-
-            // hide the new measurement item while another one is in progress in order to wait
-            // for the previous one to finish
-            (findViewById<View>(R.id.toolbar) as Toolbar).menu.getItem(
-                MENU_INDEX_NEW_MEASUREMENT
-            ).isVisible =
-                false
-            cameraService.start(previewSurface)
-            analyzer!!.measurePulse(cameraTextureView, cameraService)
-        }
-    }*/
 
     override fun onPause() {
         super.onPause()
@@ -123,7 +76,7 @@ class PulseDetector : AppCompatActivity(), OnRequestPermissionsResultCallback {
         }
 
         val textView = toolbar.findViewById(R.id.toolbar_name) as TextView
-        textView.text = "Heartbeat Rate"
+        textView.text = "Pulse Detector"
 
     }
 
@@ -151,27 +104,6 @@ class PulseDetector : AppCompatActivity(), OnRequestPermissionsResultCallback {
         return super.onPrepareOptionsMenu(menu)
     }
 
-    /*fun setViewState(state: com.example.comp3330_project.HeartBeatMain.VIEW_STATE?) {
-        val appMenu = (findViewById<View>(R.id.HeartBeat_toolbar) as Toolbar).menu
-        when (state) {
-            com.example.comp3330_project.HeartBeatMain.VIEW_STATE.MEASUREMENT -> {
-                appMenu.getItem(MENU_INDEX_NEW_MEASUREMENT).isVisible = false
-                appMenu.getItem(MENU_INDEX_EXPORT_RESULT).isVisible = false
-                appMenu.getItem(MENU_INDEX_EXPORT_DETAILS).isVisible = false
-                findViewById<View>(R.id.floatingActionButton).visibility = View.INVISIBLE
-            }
-
-            com.example.comp3330_project.HeartBeatMain.VIEW_STATE.SHOW_RESULTS -> {
-                findViewById<View>(R.id.floatingActionButton).visibility = View.VISIBLE
-                appMenu.getItem(MENU_INDEX_EXPORT_RESULT).isVisible = true
-                appMenu.getItem(MENU_INDEX_EXPORT_DETAILS).isVisible = true
-                appMenu.getItem(MENU_INDEX_NEW_MEASUREMENT).isVisible = true
-            }
-
-            else -> {}
-        }
-    }*/
-
     fun onClickNewMeasurement(item: MenuItem?) {
         onClickNewMeasurement()
     }
@@ -191,7 +123,6 @@ class PulseDetector : AppCompatActivity(), OnRequestPermissionsResultCallback {
         // hide the new measurement item while another one is in progress in order to wait
         // for the previous one to finish
         // Exporting results cannot be done, either, as it would read from the already cleared UI.
-//        setViewState(com.example.comp3330_project.HeartBeatMain.VIEW_STATE.MEASUREMENT)
         val cameraTextureView = findViewById<TextureView>(R.id.textureView2)
         val previewSurfaceTexture = cameraTextureView.surfaceTexture
         if (previewSurfaceTexture != null) {
@@ -201,34 +132,6 @@ class PulseDetector : AppCompatActivity(), OnRequestPermissionsResultCallback {
             cameraService.start(previewSurface)
             analyzer!!.measurePulse(cameraTextureView, cameraService)
         }
-    }
-
-    fun onClickExportResult(item: MenuItem?) {
-        val intent = getTextIntent((findViewById<View>(R.id.textView) as TextView).text as String)
-        justShared = true
-        startActivity(Intent.createChooser(intent, getString(R.string.send_output_to)))
-    }
-
-    fun onClickExportDetails(item: MenuItem?) {
-        val intent = getTextIntent((findViewById<View>(R.id.editText) as EditText).text.toString())
-        justShared = true
-        startActivity(Intent.createChooser(intent, getString(R.string.send_output_to)))
-    }
-
-    private fun getTextIntent(intentText: String): Intent {
-        val intent = Intent(Intent.ACTION_SEND)
-        intent.type = "text/plain"
-        intent.putExtra(
-            Intent.EXTRA_SUBJECT, String.format(
-                getString(R.string.output_header_template),
-                SimpleDateFormat(
-                    getString(R.string.dateFormat),
-                    Locale.getDefault()
-                ).format(Date())
-            )
-        )
-        intent.putExtra(Intent.EXTRA_TEXT, intentText)
-        return intent
     }
 
     private fun changeActivity() {
