@@ -23,7 +23,7 @@
             android:id="@+id/LoginTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Please enter your password:"
+            android:text="Login With Password:"
             android:textSize="30sp" />
 
         <LinearLayout
@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:ems="12"
-                android:hint="Enter Your User Name"
+                android:hint="Enter Your Name"
                 android:inputType="textPassword" />
         </LinearLayout>
 
@@ -85,8 +85,10 @@
 
     <Button
         android:id="@+id/LoginButton"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/colorAccent"
         android:text="Login" />
 
 </LinearLayout>

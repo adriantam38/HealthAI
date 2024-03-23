@@ -14,6 +14,7 @@ import android.view.MenuItem
 import android.view.Surface
 import android.view.TextureView
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
@@ -78,6 +79,11 @@ class PulseDetector : AppCompatActivity(), OnRequestPermissionsResultCallback {
         val textView = toolbar.findViewById(R.id.toolbar_name) as TextView
         textView.text = "Pulse Detector"
 
+        val startMeasurementButton: Button = findViewById(R.id.Measurement)
+        startMeasurementButton.setOnClickListener{
+            onClickNewMeasurement()
+        }
+
     }
 
     override fun onRequestPermissionsResult(
@@ -95,21 +101,6 @@ class PulseDetector : AppCompatActivity(), OnRequestPermissionsResultCallback {
                 ).show()
             }
         }
-    }
-
-    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-        Log.i("MENU", "menu is being prepared")
-        val inflater = menuInflater
-        inflater.inflate(R.menu.menu, menu)
-        return super.onPrepareOptionsMenu(menu)
-    }
-
-    fun onClickNewMeasurement(item: MenuItem?) {
-        onClickNewMeasurement()
-    }
-
-    fun onClickNewMeasurement(view: View?) {
-        onClickNewMeasurement()
     }
 
     fun onClickNewMeasurement() {
@@ -143,8 +134,5 @@ class PulseDetector : AppCompatActivity(), OnRequestPermissionsResultCallback {
         const val MESSAGE_UPDATE_REALTIME = 1
         const val MESSAGE_UPDATE_FINAL = 2
         const val MESSAGE_CAMERA_NOT_AVAILABLE = 3
-        private const val MENU_INDEX_NEW_MEASUREMENT = 0
-        private const val MENU_INDEX_EXPORT_RESULT = 1
-        private const val MENU_INDEX_EXPORT_DETAILS = 2
     }
 }
