@@ -78,13 +78,13 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--    <Button-->
-<!--        android:id="@+id/startExerciseButton"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:backgroundTint="@color/colorAccent"-->
-<!--        android:text="Start Exercise"-->
-<!--        android:textSize="30sp" />-->
+    <Button
+        android:id="@+id/startExerciseButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorAccent"
+        android:text="Start Exercise"
+        android:textSize="30sp" />
 
     <!-- ConstraintLayout for today's plans -->
 </LinearLayout>

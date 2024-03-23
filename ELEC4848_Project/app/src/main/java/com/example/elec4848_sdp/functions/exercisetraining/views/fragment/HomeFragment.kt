@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.Button
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.elec4848_sdp.R
@@ -29,13 +32,16 @@ class HomeFragment : Fragment(), MemoryManagement {
     private lateinit var recentActivityAdapter: RecentActivityAdapter
     private var workoutResults: List<WorkoutResult>? = null
     private lateinit var appRepository: AppRepository
+    private lateinit var exerciseStartButton: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_home, container, false)
+        exerciseStartButton = view.findViewById(R.id.startExerciseButton)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -74,6 +80,10 @@ class HomeFragment : Fragment(), MemoryManagement {
             } else {
                 recentActivityRecyclerView.isVisible = true
             }
+        }
+        exerciseStartButton.setOnClickListener {
+            Navigation.findNavController(view)
+                .navigate(R.id.action_homeFragment_to_workoutFragment)
         }
     }
 

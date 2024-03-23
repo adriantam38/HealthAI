@@ -48,21 +48,5 @@ class MyUtils {
             }
             return total
         }
-
-        fun databaseNameToClassification(variableName: String): String {
-            return when (variableName) {
-                "Push up" -> "pushups_down"
-                "Lunge" -> "lunges"
-                "Squat" -> "squats"
-                "Sit up" -> "situp_up"
-                "Chest press" -> "chestpress_down"
-                "Dead lift" -> "deadlift_down"
-                "Shoulder press" -> "shoulderpress_down"
-                "Warrior Yoga" -> "warrior"
-                "Tree Yoga" -> "tree_pose"
-                // Add more cases as needed
-                else -> variableName // Default to the original name if not matched
-            }
-        }
     }
 }

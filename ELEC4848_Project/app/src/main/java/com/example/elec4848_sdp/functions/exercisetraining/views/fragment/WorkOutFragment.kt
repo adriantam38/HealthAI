@@ -7,7 +7,6 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-//import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -57,7 +56,6 @@ import com.example.elec4848_sdp.functions.exercisetraining.posedetector.classifi
 import com.example.elec4848_sdp.functions.exercisetraining.util.MemoryManagement
 import com.example.elec4848_sdp.functions.exercisetraining.util.MyApplication
 import com.example.elec4848_sdp.functions.exercisetraining.util.MyUtils.Companion.convertTimeStringToMinutes
-import com.example.elec4848_sdp.functions.exercisetraining.util.MyUtils.Companion.databaseNameToClassification
 import com.example.elec4848_sdp.functions.exercisetraining.util.MyUtils.Companion.exerciseNameToDisplay
 import com.example.elec4848_sdp.functions.exercisetraining.util.VisionImageProcessor
 import com.example.elec4848_sdp.functions.exercisetraining.viewmodels.CameraXViewModel
@@ -128,7 +126,6 @@ class WorkOutFragment : Fragment(), MemoryManagement {
     private lateinit var loadProgress: ProgressBar
     private lateinit var completeAllExercise: TextView
     private lateinit var skipButton: Button
-//    private lateinit var textToSpeech: TextToSpeech
     private lateinit var yogaPoseImage: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -136,7 +133,6 @@ class WorkOutFragment : Fragment(), MemoryManagement {
         if (!allRuntimePermissionsGranted()) {
             getRuntimePermissions()
         }
-//        initTextToSpeech()
         cameraSelector = CameraSelector.Builder().requireLensFacing(lensFacing).build()
         cameraViewModel = ViewModelProvider(
             this, ViewModelProvider.AndroidViewModelFactory
@@ -229,9 +225,7 @@ class WorkOutFragment : Fragment(), MemoryManagement {
         val shoulderPress = Postures.shoulderpress
 
         buttonCompleteExercise.setOnClickListener {
-//            synthesizeSpeech("Workout Complete")
             cameraViewModel.postureLiveData.value?.let {
-                //val builder = StringBuilder()
                 for ((_, value) in it) {
                     if (value.repetition != 0) {
                         lifecycleScope.launch {
@@ -403,13 +397,10 @@ class WorkOutFragment : Fragment(), MemoryManagement {
                                 value.confidence,
                                 true
                             )
-                            // inform the user about completion only once
-//                            synthesizeSpeech(exerciseNameToDisplay(key) + " exercise Complete")
                             // check if all the exercise list complete if yes tell all exercise is complete
                             if (exerciseLog.areAllExercisesCompleted(databaseExercisePlan)) {
                                 val handler = Handler(Looper.getMainLooper())
                                 handler.postDelayed({
-//                                    synthesizeSpeech("Congratulation! all the planned exercise completed")
                                     isAllWorkoutFinished = true
                                     completeAllExercise.visibility = View.VISIBLE
                                 }, 5000)
@@ -487,7 +478,6 @@ class WorkOutFragment : Fragment(), MemoryManagement {
                 runOnce = true
                 loadingTV.visibility = View.GONE
                 loadProgress.visibility = View.GONE
-//                synthesizeSpeech("ready to start")
                 startMediaTimer()
                 timerTextView.visibility = View.VISIBLE
                 timerRecordIcon.visibility = View.VISIBLE
