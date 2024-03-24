@@ -82,7 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_large"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:text=""
         android:textColor="@color/black"
         android:textSize="18sp"
@@ -95,8 +95,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:backgroundTint="@color/colorAccent"
-        android:text="Start Exercise"
-        android:textSize="30sp" />
+        android:text="Start Exercise"/>
 
     <!-- ConstraintLayout for today's plans -->
 </LinearLayout>

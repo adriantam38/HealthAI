@@ -17,12 +17,15 @@ class CaloriesSQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE
         private const val USERID = "userID"
         private const val NAME = "name"
         private const val CALORIES = "calories"
+        private const val DATE = "date"
+        private const val TIME = "time"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
         val createTbl = ("CREATE TABLE " + TBL_CALORIES + "(" +
                 ID + " INTEGER PRIMARY KEY, " + USERID + " INTEGER, " +
-                NAME + " TEXT, " + CALORIES + " INTEGER" +")")
+                NAME + " TEXT, " + CALORIES + " INTEGER, "  + DATE + " TEXT, " +
+                TIME + " TEXT" +")")
         db?.execSQL(createTbl)
     }
 
@@ -39,6 +42,8 @@ class CaloriesSQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE
         contentValues.put(USERID, std.userID)
         contentValues.put(NAME, std.name)
         contentValues.put(CALORIES, std.calories)
+        contentValues.put(DATE, std.date)
+        contentValues.put(TIME, std.time)
 
         val success = db.insert(TBL_CALORIES, null, contentValues)
         db.close()
@@ -64,6 +69,8 @@ class CaloriesSQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE
         var userID: Int
         var name: String
         var calories: Int
+        var date: String
+        var time: String
 
         if (cursor.moveToFirst()){
             do {
@@ -71,8 +78,10 @@ class CaloriesSQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE
                 userID = cursor.getInt(cursor.getColumnIndexOrThrow("userID"))
                 name = cursor.getString(cursor.getColumnIndexOrThrow("name"))
                 calories = cursor.getInt(cursor.getColumnIndexOrThrow("calories"))
+                date = cursor.getString(cursor.getColumnIndexOrThrow("date"))
+                time = cursor.getString(cursor.getColumnIndexOrThrow("time"))
 
-                val std = CaloriesModel(id = id, userID = userID, name = name, calories = calories)
+                val std = CaloriesModel(id = id, userID = userID, name = name, calories = calories, date = date, time = time)
                 stdList.add(std)
             }while (cursor.moveToNext())
         }
@@ -88,6 +97,8 @@ class CaloriesSQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE
         contentValues.put(USERID, std.userID)
         contentValues.put(NAME, std.name)
         contentValues.put(CALORIES, std.calories)
+        contentValues.put(DATE, std.date)
+        contentValues.put(TIME, std.time)
 
         val success = db.update(TBL_CALORIES, contentValues, "id=" + std.id, null)
         db.close()

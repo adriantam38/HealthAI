@@ -17,6 +17,8 @@ import com.example.elec4848_sdp.functions.trackers.exercise.ExerciseSQLiteHelper
 import com.example.elec4848_sdp.R
 import com.example.elec4848_sdp.functions.profile.UserSQLiteHelper
 import com.example.elec4848_sdp.views.main_views.MainMenu
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 class ExerciseTracker : AppCompatActivity() {
     private lateinit var nameEditText: EditText
@@ -60,6 +62,11 @@ class ExerciseTracker : AppCompatActivity() {
         val name = nameEditText.text.toString()
         val calories = caloriesEditText.text.toString().toIntOrNull()
         val duration = durationEditText.text.toString().toInt()
+        val time = Calendar.getInstance().time
+        val formatter_date = SimpleDateFormat("yyyy-MM-dd")
+        val current_date = formatter_date.format(time)
+        val formatter_time = SimpleDateFormat("HH:mm")
+        val current_time = formatter_time.format(time)
 
         val selectedOption: Int = intensityRadioGroup!!.checkedRadioButtonId
         intensityRadioButton = findViewById(selectedOption)
@@ -70,7 +77,7 @@ class ExerciseTracker : AppCompatActivity() {
         } else {
             val userID = userSqLiteHelper.getUserID()
             if (userID != 0) {
-                val std = ExerciseModel(userID = userID, name = name, intensity = intensity, duration = duration, calories = calories)
+                val std = ExerciseModel(userID = userID, name = name, intensity = intensity, duration = duration, calories = calories, date = current_date.toString(), time = current_time.toString())
                 val status = exerciseSqLiteHelper.insertRecord(std)
                 if (status > -1) {
                     Toast.makeText(this, "Record added", Toast.LENGTH_LONG).show()

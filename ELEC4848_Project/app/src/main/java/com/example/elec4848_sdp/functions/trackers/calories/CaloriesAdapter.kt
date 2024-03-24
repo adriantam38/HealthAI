@@ -42,11 +42,15 @@ class CaloriesAdapter: RecyclerView.Adapter<CaloriesAdapter.RecordViewHolder>() 
     class RecordViewHolder(var view: View): RecyclerView.ViewHolder(view){
         private var name = view.findViewById<TextView>(R.id.Name)
         private var value = view.findViewById<TextView>(R.id.Value)
+        private var date = view.findViewById<TextView>(R.id.Date)
+        private var time = view.findViewById<TextView>(R.id.Time)
         var deleteButton = view.findViewById<Button>(R.id.deleteButton)
 
         fun bindView(std: CaloriesModel) {
             name.text = std.name
             value.text = std.calories.toString()
+            date.text = std.date.toString()
+            time.text = std.time.toString()
         }
     }
 }

@@ -44,6 +44,8 @@ class ExerciseAdapter: RecyclerView.Adapter<ExerciseAdapter.RecordViewHolder>() 
         private var intensity = view.findViewById<TextView>(R.id.Intensity)
         private var duration = view.findViewById<TextView>(R.id.Duration)
         private var value = view.findViewById<TextView>(R.id.Value)
+        private var date = view.findViewById<TextView>(R.id.Date)
+        private var time = view.findViewById<TextView>(R.id.Time)
         var deleteButton = view.findViewById<Button>(R.id.deleteButton)
 
         fun bindView(std: ExerciseModel) {
@@ -51,6 +53,8 @@ class ExerciseAdapter: RecyclerView.Adapter<ExerciseAdapter.RecordViewHolder>() 
             value.text = std.calories.toString()
             intensity.text = std.intensity
             duration.text = std.duration.toString()
+            date.text = std.date.toString()
+            time.text = std.time.toString()
         }
     }
 }

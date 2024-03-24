@@ -6,7 +6,9 @@ class ExerciseModel (
     var name: String,
     var intensity: String,
     var duration: Int,
-    var calories: Int
+    var calories: Int,
+    var date: String,
+    var time: String
 ) {
     companion object {
         fun getAutoId(): Int {

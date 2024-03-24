@@ -23,70 +23,84 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/caloriesTrackerButton"
+            <ScrollView
+                android:id="@+id/scrollview_direction"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/calories_tracker"
-                android:backgroundTint="@color/colorAccent"
-                android:textSize="30sp"/>
+                android:layout_height="match_parent"
+                android:fillViewport="true"
+                android:layout_gravity="center">
 
-            <Button
-                android:id="@+id/exerciseTrackerButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/exercise_tracker"
-                android:backgroundTint="@color/colorAccent"
-                android:textSize="30sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-            <Button
-                android:id="@+id/heartRateButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/heartbeat_rate_tracker"
-                android:backgroundTint="@color/colorAccent"
-                android:textSize="30sp" />
+                    <Button
+                        android:id="@+id/caloriesTrackerButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/calories_tracker"
+                        android:backgroundTint="@color/colorAccent"
+                        android:textSize="30sp" />
 
-            <Button
-                android:id="@+id/exerciseTraining"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/exerciseTraining"
-                android:backgroundTint="@color/colorAccent"
-                android:textSize="30sp" />
+                    <Button
+                        android:id="@+id/exerciseTrackerButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/exercise_tracker"
+                        android:backgroundTint="@color/colorAccent"
+                        android:textSize="30sp" />
 
-            <Button
-                android:id="@+id/testCalories"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorAccent"
-                android:text="@string/view_calories_record"
-                android:textSize="30sp"
-                android:visibility="visible" />
+                    <Button
+                        android:id="@+id/heartRateButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/heartbeat_rate_tracker"
+                        android:backgroundTint="@color/colorAccent"
+                        android:textSize="30sp" />
 
-            <Button
-                android:id="@+id/testUser"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="test"
-                android:visibility="gone" />
+                    <Button
+                        android:id="@+id/exerciseTraining"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/exerciseTraining"
+                        android:backgroundTint="@color/colorAccent"
+                        android:textSize="30sp" />
 
-            <Button
-                android:id="@+id/testExercise"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/view_exercise_record"
-                android:backgroundTint="@color/colorAccent"
-                android:textSize="30sp" />
+                    <Button
+                        android:id="@+id/testCalories"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/colorAccent"
+                        android:text="@string/view_calories_record"
+                        android:textSize="30sp"
+                        android:visibility="visible" />
 
-            <Button
-                android:id="@+id/settingButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/profile_setting"
-                android:backgroundTint="@color/colorAccent"
-                android:textSize="30sp"/>
+                    <Button
+                        android:id="@+id/testUser"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="test"
+                        android:visibility="gone" />
 
+                    <Button
+                        android:id="@+id/testExercise"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/view_exercise_record"
+                        android:backgroundTint="@color/colorAccent"
+                        android:textSize="30sp" />
+
+                    <Button
+                        android:id="@+id/settingButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/profile_setting"
+                        android:backgroundTint="@color/colorAccent"
+                        android:textSize="30sp"/>
+
+                </LinearLayout>
+            </ScrollView>
         </LinearLayout>
 
 

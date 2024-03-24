@@ -15,6 +15,8 @@ import com.example.elec4848_sdp.functions.trackers.calories.CaloriesSQLiteHelper
 import com.example.elec4848_sdp.R
 import com.example.elec4848_sdp.functions.profile.UserSQLiteHelper
 import com.example.elec4848_sdp.views.main_views.MainMenu
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 class CaloriesTracker : AppCompatActivity() {
     private lateinit var nameEditText: EditText
@@ -54,13 +56,18 @@ class CaloriesTracker : AppCompatActivity() {
     private fun addRecord() {
         val name = nameEditText.text.toString()
         val calories = caloriesEditText.text.toString().toIntOrNull()
+        val time = Calendar.getInstance().time
+        val formatter_date = SimpleDateFormat("yyyy-MM-dd")
+        val current_date = formatter_date.format(time)
+        val formatter_time = SimpleDateFormat("HH:mm")
+        val current_time = formatter_time.format(time)
 
         if (name.isEmpty() || calories == null) {
             Toast.makeText(this, "Please enter the required field", Toast.LENGTH_LONG).show()
         } else {
             val userID = userSqLiteHelper.getUserID()
             if (userID != 0) {
-                val std = CaloriesModel(name = name, userID = userID, calories = calories)
+                val std = CaloriesModel(name = name, userID = userID, calories = calories, date = current_date.toString(), time = current_time.toString())
                 val status = caloriesSqLiteHelper.insertRecord(std)
                 if (status > -1) {
                     Toast.makeText(this, "Record added", Toast.LENGTH_LONG).show()

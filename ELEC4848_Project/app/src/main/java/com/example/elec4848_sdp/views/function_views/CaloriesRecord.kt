@@ -17,7 +17,6 @@ import com.example.elec4848_sdp.R
 import com.example.elec4848_sdp.views.main_views.MainMenu
 
 class CaloriesRecord: AppCompatActivity(){
-    private lateinit var viewButton: Button
     private lateinit var caloriesSqLiteHelper: CaloriesSQLiteHelper
 
     private lateinit var recyclerView: RecyclerView
@@ -38,10 +37,8 @@ class CaloriesRecord: AppCompatActivity(){
         textView.text = "Calories Record"
 
         initRecyclerView()
-
-        viewButton = findViewById(R.id.viewButton)
         caloriesSqLiteHelper = CaloriesSQLiteHelper(this)
-        viewButton.setOnClickListener { getCalories() }
+        getCalories()
         adapter?.setOnClickDeleteItem {
             deleteRecord(it.id)
         }

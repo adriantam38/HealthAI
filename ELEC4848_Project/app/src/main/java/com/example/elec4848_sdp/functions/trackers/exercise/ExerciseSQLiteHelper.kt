@@ -6,6 +6,7 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.example.elec4848_sdp.functions.trackers.calories.CaloriesModel
+import com.example.elec4848_sdp.functions.trackers.calories.CaloriesSQLiteHelper
 import java.lang.Exception
 
 class ExerciseSQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION){
@@ -20,13 +21,16 @@ class ExerciseSQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE
         private const val INTENSITY = "intensity"
         private const val DURATION = "duration"
         private const val CALORIES = "calories"
+        private const val DATE = "date"
+        private const val TIME = "time"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
         val createTbl = ("CREATE TABLE " + TBL_EXERCISE + "(" +
                 ID + " INTEGER PRIMARY KEY, " + USERID + " INTEGER, " +
                 NAME + " TEXT, " + CALORIES + " INTEGER, " + INTENSITY + " TEXT, " +
-                DURATION + " INTEGER" +")")
+                DURATION + " INTEGER, " + DATE + " TEXT, " +
+                TIME + " TEXT" +")")
         db?.execSQL(createTbl)
     }
 
@@ -45,6 +49,8 @@ class ExerciseSQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE
         contentValues.put(INTENSITY, std.intensity)
         contentValues.put(DURATION, std.duration)
         contentValues.put(CALORIES, std.calories)
+        contentValues.put(DATE, std.date)
+        contentValues.put(TIME, std.time)
 
         val success = db.insert(TBL_EXERCISE, null, contentValues)
         db.close()
@@ -72,6 +78,8 @@ class ExerciseSQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE
         var intensity: String
         var duration: Int
         var calories: Int
+        var date: String
+        var time: String
 
         if (cursor.moveToFirst()){
             do {
@@ -81,8 +89,10 @@ class ExerciseSQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE
                 intensity = cursor.getString(cursor.getColumnIndexOrThrow("intensity"))
                 duration = cursor.getInt(cursor.getColumnIndexOrThrow(("duration")))
                 calories = cursor.getInt(cursor.getColumnIndexOrThrow("calories"))
+                date = cursor.getString(cursor.getColumnIndexOrThrow("date"))
+                time = cursor.getString(cursor.getColumnIndexOrThrow("time"))
 
-                val std = ExerciseModel(id = id, userID = userID, name = name, intensity = intensity, duration = duration, calories = calories)
+                val std = ExerciseModel(id = id, userID = userID, name = name, intensity = intensity, duration = duration, calories = calories, date = date, time = time)
                 stdList.add(std)
             }while (cursor.moveToNext())
         }
@@ -98,6 +108,8 @@ class ExerciseSQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE
         contentValues.put(USERID, std.userID)
         contentValues.put(NAME, std.name)
         contentValues.put(CALORIES, std.calories)
+        contentValues.put(DATE, std.date)
+        contentValues.put(TIME, std.time)
 
         val success = db.update(TBL_EXERCISE, contentValues, "id=" + std.id, null)
         db.close()

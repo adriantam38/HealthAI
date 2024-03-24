@@ -3,7 +3,6 @@ package com.example.elec4848_sdp.views.function_views
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -17,7 +16,6 @@ import com.example.elec4848_sdp.R
 import com.example.elec4848_sdp.views.main_views.MainMenu
 
 class ExerciseRecord: AppCompatActivity(){
-    private lateinit var viewButton: Button
     private lateinit var exerciseSqLiteHelper: ExerciseSQLiteHelper
 
     private lateinit var recyclerView: RecyclerView
@@ -39,16 +37,14 @@ class ExerciseRecord: AppCompatActivity(){
         }
 
         initRecyclerView()
-
-        viewButton = findViewById(R.id.viewButton)
         exerciseSqLiteHelper = ExerciseSQLiteHelper(this)
-        viewButton.setOnClickListener { getCalories() }
+        getExercise()
         adapter?.setOnClickDeleteItem {
             deleteRecord(it.id)
         }
     }
 
-    private fun getCalories() {
+    private fun getExercise() {
         val stdList = exerciseSqLiteHelper.getAllRecords()
         Log.v("pppp", "${stdList.size}")
 
@@ -71,7 +67,7 @@ class ExerciseRecord: AppCompatActivity(){
         builder.setPositiveButton("Yes"){
             dialog, _ ->dialog.dismiss()
             exerciseSqLiteHelper.deleteRecordsById(id)
-            getCalories()
+            getExercise()
         }
         builder.setNegativeButton("No"){
             dialog, _ -> dialog.dismiss()
