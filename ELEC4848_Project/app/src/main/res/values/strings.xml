@@ -20,7 +20,7 @@
     <string name="calories_burnt">Calories Burnt:</string>
     <string name="calories_value">Calories Value:</string>
     <string name="caloriesTrackerAddButton">Add</string>
-    <string name="caloriesTackerCaloriesHint">Calories (kcal)</string>
+    <string name="caloriesTackerCaloriesHint">Calories (cal)</string>
     <string name="CaloriesTrackerFoodName">Name</string>
     <string name="view_exercise_record">View Exercise Record</string>
     <string name="exerciseTraining">Exercise Training</string>
@@ -43,7 +43,7 @@
     <string name="dateFormat">yyyy-MM-dd\'T\'HH:mm:ssZZZZZ</string>
     <string name="dateFormatGranular">yyyy-MM-dd\'T\'HH:mm:ss.SSSZZZZZ</string>
     <string name="camera_not_found">Camera not available.</string>
-    <string name="view_calories_record">View Calories Record</string>
+    <string name="view_calories_record">View Food Record</string>
     <string name="create_profile">Create Profile</string>
     <string name="guest">Guest</string>
     <string name="healthai">HealthAI</string>

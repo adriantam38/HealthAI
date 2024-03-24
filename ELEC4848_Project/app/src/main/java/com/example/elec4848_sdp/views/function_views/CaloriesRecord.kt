@@ -15,12 +15,14 @@ import com.example.elec4848_sdp.functions.trackers.calories.CaloriesAdapter
 import com.example.elec4848_sdp.functions.trackers.calories.CaloriesSQLiteHelper
 import com.example.elec4848_sdp.R
 import com.example.elec4848_sdp.views.main_views.MainMenu
+import java.lang.StringBuilder
 
 class CaloriesRecord: AppCompatActivity(){
     private lateinit var caloriesSqLiteHelper: CaloriesSQLiteHelper
 
     private lateinit var recyclerView: RecyclerView
     private var adapter: CaloriesAdapter? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

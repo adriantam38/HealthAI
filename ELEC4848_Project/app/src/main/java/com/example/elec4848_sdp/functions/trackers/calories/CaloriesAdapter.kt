@@ -47,10 +47,24 @@ class CaloriesAdapter: RecyclerView.Adapter<CaloriesAdapter.RecordViewHolder>() 
         var deleteButton = view.findViewById<Button>(R.id.deleteButton)
 
         fun bindView(std: CaloriesModel) {
+            val CaloriesString = StringBuilder()
+            val DateString = StringBuilder()
+            val TimeString = StringBuilder()
+
+            CaloriesString.append("Calories Consumed: ")
+            CaloriesString.append(std.calories.toString())
+            CaloriesString.append(" cal")
+
+            DateString.append("Date: ")
+            DateString.append(std.date.toString())
+
+            TimeString.append("Time: ")
+            TimeString.append(std.time.toString())
+
             name.text = std.name
-            value.text = std.calories.toString()
-            date.text = std.date.toString()
-            time.text = std.time.toString()
+            value.text = CaloriesString.toString()
+            date.text = DateString.toString()
+            time.text = TimeString.toString()
         }
     }
 }

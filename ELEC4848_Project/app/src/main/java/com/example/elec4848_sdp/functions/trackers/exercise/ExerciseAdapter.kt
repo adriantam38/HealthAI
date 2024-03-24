@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.elec4848_sdp.R
+import java.sql.Time
+import java.util.jar.Attributes.Name
 
 class ExerciseAdapter: RecyclerView.Adapter<ExerciseAdapter.RecordViewHolder>() {
     private var stdList: ArrayList<ExerciseModel> = ArrayList()
@@ -49,12 +51,35 @@ class ExerciseAdapter: RecyclerView.Adapter<ExerciseAdapter.RecordViewHolder>() 
         var deleteButton = view.findViewById<Button>(R.id.deleteButton)
 
         fun bindView(std: ExerciseModel) {
+            val CaloriesString = StringBuilder()
+            val IntensityString = StringBuilder()
+            val DurationString = StringBuilder()
+            val DateString = StringBuilder()
+            val TimeString = StringBuilder()
+
+            CaloriesString.append("Calories Burnt: ")
+            CaloriesString.append(std.calories.toString())
+            CaloriesString.append(" cal")
+
+            IntensityString.append("Intensity Level: ")
+            IntensityString.append(std.intensity)
+
+            DurationString.append("Duration: ")
+            DurationString.append(std.duration.toString())
+            DurationString.append(" mins")
+
+            DateString.append("Date: ")
+            DateString.append(std.date.toString())
+
+            TimeString.append("Time: ")
+            TimeString.append(std.time.toString())
+
             name.text = std.name
-            value.text = std.calories.toString()
-            intensity.text = std.intensity
-            duration.text = std.duration.toString()
-            date.text = std.date.toString()
-            time.text = std.time.toString()
+            value.text = CaloriesString.toString()
+            intensity.text = IntensityString.toString()
+            duration.text = DurationString.toString()
+            date.text = DateString.toString()
+            time.text = TimeString.toString()
         }
     }
 }

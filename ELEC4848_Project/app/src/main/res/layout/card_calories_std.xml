@@ -14,13 +14,9 @@
             android:id="@+id/Name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/Value"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/Date"
@@ -30,6 +26,12 @@
 
         <TextView
             android:id="@+id/Time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/Value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView" />
